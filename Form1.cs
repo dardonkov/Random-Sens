@@ -18,7 +18,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
-        private void start_Btn_Click(object sender, EventArgs e)
+        private void btn_Start_Click(object sender, EventArgs e)
         {
             using (Process p = Process.GetCurrentProcess())
                 p.PriorityClass = ProcessPriorityClass.High;
