@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WindowsFormsApp1
 {
     class SensitivityCurve
     {
         public List<SensitivityPoint> sensCurve { get; private set; }
+        public List<SensitivityPoint> sensCurveSmoth { get; private set; }
         private Double sensMean;
         private Double sensMax;
         private Double sensMin;
@@ -24,7 +26,7 @@ namespace WindowsFormsApp1
             this.timestep = timestep;
             this.lenght = lenght*60; //lenght is converted to seconds
         }
-        public List<SensitivityPoint> GenerateCurve()
+        public void GenerateCurve()
         {
             //create the senseCurve, the start of the curve and start populating it with random values
             List<SensitivityPoint> sensCurve = new List<SensitivityPoint>();
@@ -48,7 +50,27 @@ namespace WindowsFormsApp1
                     sensCurve.Add(sensPoint);
                 }
             }
-            return sensCurve;
+            this.sensCurve = sensCurve;
         }
+        public void InterpolateCurve() // generates a smoother version of the random curve
+        {
+            List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
+            // To do - make a smooth curve
+            this.sensCurveSmoth = smoothCurve;
+        }
+        /*public Chart GetChart()
+        {
+            Chart sensChart = new Chart();
+            var sens = new Series("Sensitivity");
+            sens.ChartType = SeriesChartType.Line;
+            foreach (var point in this.sensCurveSmoth)
+            {
+                sens.Points.AddXY(point.timeStamp, point.sensitivity);
+            }
+            sensChart.Series.Add(sens);
+            sensChart.Visible = true;
+            sensChart.Update();
+            return sensChart;
+        }*/
     }
 }

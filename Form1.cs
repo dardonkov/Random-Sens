@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WindowsFormsApp1
 {
@@ -45,6 +46,21 @@ namespace WindowsFormsApp1
             }
 
             Interception.interception_destroy_context(context);
+        }
+        private void btn_Regen_Curve_Click(object sender, EventArgs e)
+        {
+            SensitivityCurve sensCurve = new SensitivityCurve(1,2,0.5,5,5);
+            sensCurve.GenerateCurve();
+            sensCurve.InterpolateCurve();
+            var sens = new Series("Sensitivity");
+            foreach (var point in sensCurve.sensCurve)
+            {
+                sens.Points.AddXY(point.timeStamp, point.sensitivity);
+            }
+            sens.ChartType = SeriesChartType.Line;
+            sensCurveChart.Series.Add(sens);
+            sensCurveChart.Update();
+            
         }
     }
 }
