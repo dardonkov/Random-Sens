@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
-using MathNet.Numerics;
+using MathNet.Numerics.Interpolation;
 
 namespace WindowsFormsApp1
 {
@@ -27,7 +27,7 @@ namespace WindowsFormsApp1
             this.timestep = timestep;
             this.lenght = lenght * 60; //lenght is converted to seconds
         }
-        public void GenerateCurve()
+        public void GenerateCurveType1()
         {
             //create the senseCurve, the start of the curve and start populating it with random values
             List<SensitivityPoint> sensCurve = new List<SensitivityPoint>();
@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
             sensCurve.Add(firstPoint);
             Random rnd = new Random();
 
-            for (double timecode = 0; timecode < this.lenght; timecode += timestep)
+            for (double timecode = timestep; timecode < this.lenght; timecode += timestep)
             {
                 double sensDirection = rnd.NextDouble(); //create a random double to determine if sense is going to be faster or slower
                 if (sensDirection >= 0.5)//sens will be faster
@@ -51,23 +51,33 @@ namespace WindowsFormsApp1
                     sensCurve.Add(sensPoint);
                 }
             }
+            SensitivityPoint finalSensPoint = new SensitivityPoint(timestep+this.lenght, 0);//Make sure the curve ends at base sens
+            sensCurve.Add(finalSensPoint);
             this.sensCurve = sensCurve;
         }
-        public void InterpolateCurve() // generates a smoother version of the random curve
+        public void GenerateCurveType2()
+        {
+
+        }
+        public void InterpolateCurveAkima() // generates a smoother version of the random curve
         {
             List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
-
             // To do - make a smooth curve
-            smoothCurve = this.sensCurve;
-            // Temp
-
+            double[] timestamp = this.sensCurve.Select(sensCurve => sensCurve.timeStamp).ToArray();
+            double[] randomsense = this.sensCurve.Select(sensCurve => sensCurve.sensitivity).ToArray();
+            CubicSpline spline = CubicSpline.InterpolateAkima(timestamp, randomsense);
+            for (double timecode = 0; timecode < this.lenght; timecode += 0.2)
+            {
+                SensitivityPoint sensPoint = new SensitivityPoint(timecode, spline.Interpolate(timecode));
+                smoothCurve.Add(sensPoint);
+            }
             this.sensCurveSmoth = smoothCurve;
         }
-        public Chart GetChart(Chart sensChart) //Modifies the provided chart object to create a sensitivity over time chart
+        public Chart GetChart(Chart sensChart, List<SensitivityPoint> sensitivityPoints) //Modifies the provided chart object to create a sensitivity over time chart
         {
             sensChart.Series.Clear(); // Clear any existing series and add the sens points
             var sens = new Series("Sensitivity");
-            foreach (var point in this.sensCurveSmoth)
+            foreach (var point in sensitivityPoints)
             {
                 sens.Points.AddXY(point.timeStamp, point.sensitivity);
             }

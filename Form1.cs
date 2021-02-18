@@ -49,10 +49,10 @@ namespace WindowsFormsApp1
         }
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
         {
-            SensitivityCurve sensCurve = new SensitivityCurve(1,2,0.5,5,5);
-            sensCurve.GenerateCurve();
-            sensCurve.InterpolateCurve();
-            sensCurveChart = sensCurve.GetChart(sensCurveChart);
+            SensitivityCurve sensCurve = new SensitivityCurve(1,2,0.5,10,5);
+            sensCurve.GenerateCurveType1();
+            sensCurve.InterpolateCurveAkima();
+            sensCurveChart = sensCurve.GetChart(sensCurveChart, sensCurve.sensCurveSmoth);
         }
     }
 }
