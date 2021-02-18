@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
+using MathNet.Numerics;
 
 namespace WindowsFormsApp1
 {
@@ -17,14 +18,14 @@ namespace WindowsFormsApp1
         private Double timestep;
         private Double smoothing;
         private Double lenght; //lenght of the pre-generated curve in minutes
-        
+
         public SensitivityCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double lenght)
         {
             this.sensMean = sensMean;
             this.sensMax = sensMax;
             this.sensMin = sensMin;
             this.timestep = timestep;
-            this.lenght = lenght*60; //lenght is converted to seconds
+            this.lenght = lenght * 60; //lenght is converted to seconds
         }
         public void GenerateCurve()
         {
@@ -34,7 +35,7 @@ namespace WindowsFormsApp1
             sensCurve.Add(firstPoint);
             Random rnd = new Random();
 
-            for (double timecode = 0; timecode < this.lenght; timecode+=timestep)
+            for (double timecode = 0; timecode < this.lenght; timecode += timestep)
             {
                 double sensDirection = rnd.NextDouble(); //create a random double to determine if sense is going to be faster or slower
                 if (sensDirection >= 0.5)//sens will be faster
@@ -55,22 +56,28 @@ namespace WindowsFormsApp1
         public void InterpolateCurve() // generates a smoother version of the random curve
         {
             List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
+
             // To do - make a smooth curve
+            smoothCurve = this.sensCurve;
+            // Temp
+
             this.sensCurveSmoth = smoothCurve;
         }
-        /*public Chart GetChart()
+        public Chart GetChart(Chart sensChart) //Modifies the provided chart object to create a sensitivity over time chart
         {
-            Chart sensChart = new Chart();
+            sensChart.Series.Clear(); // Clear any existing series and add the sens points
             var sens = new Series("Sensitivity");
-            sens.ChartType = SeriesChartType.Line;
             foreach (var point in this.sensCurveSmoth)
             {
                 sens.Points.AddXY(point.timeStamp, point.sensitivity);
             }
+            sens.ChartType = SeriesChartType.Line;
             sensChart.Series.Add(sens);
-            sensChart.Visible = true;
-            sensChart.Update();
+            // Format the chart to conform the data
+            sensChart.ChartAreas[0].AxisY.Minimum = sensMin;
+            sensChart.ChartAreas[0].AxisY.Maximum = sensMax;
+            //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
-        }*/
+        }
     }
 }

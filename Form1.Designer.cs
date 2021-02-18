@@ -198,6 +198,12 @@ namespace WindowsFormsApp1
             // 
             // sensCurveChart
             // 
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.Title = "Time";
+            chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisY.IsMarginVisible = false;
+            chartArea1.AxisY.Title = "Sensitivity multiplier";
+            chartArea1.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
             chartArea1.Name = "ChartArea1";
             this.sensCurveChart.ChartAreas.Add(chartArea1);
             legend1.Enabled = false;

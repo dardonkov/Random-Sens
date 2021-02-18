@@ -52,15 +52,7 @@ namespace WindowsFormsApp1
             SensitivityCurve sensCurve = new SensitivityCurve(1,2,0.5,5,5);
             sensCurve.GenerateCurve();
             sensCurve.InterpolateCurve();
-            var sens = new Series("Sensitivity");
-            foreach (var point in sensCurve.sensCurve)
-            {
-                sens.Points.AddXY(point.timeStamp, point.sensitivity);
-            }
-            sens.ChartType = SeriesChartType.Line;
-            sensCurveChart.Series.Add(sens);
-            sensCurveChart.Update();
-            
+            sensCurveChart = sensCurve.GetChart(sensCurveChart);
         }
     }
 }
