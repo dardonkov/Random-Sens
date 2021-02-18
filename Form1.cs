@@ -52,7 +52,7 @@ namespace WindowsFormsApp1
             SensitivityCurve sensCurve = new SensitivityCurve(1,2,0.5,5,5);
             sensCurve.GenerateCurve();
             sensCurve.InterpolateCurve();
-            sensCurveChart = sensCurve.GetChart(sensCurveChart);
+            sensCurveChart = sensCurve.GetChart(sensCurveChart, sensCurve.sensCurveSmoth);
         }
     }
 }
