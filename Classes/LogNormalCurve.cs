@@ -20,7 +20,7 @@ namespace WindowsFormsApp1.Classes
             base.lenght = lenght * 60; //lenght is converted to seconds
             this.sigma = sigma;
         }
-        public void GenerateCurve()
+        internal override void GenerateCurve()
         {
             //create the senseCurve, the start of the curve and start populating it with random values
             List<SensitivityPoint> sensCurve = new List<SensitivityPoint>();

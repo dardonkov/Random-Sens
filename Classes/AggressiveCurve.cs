@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class AgressiveCurve : SensitivityCurve
+    class AggressiveCurve : SensitivityCurve
     {  
-        public AgressiveCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double lenght)
+        public AggressiveCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double lenght)
         {
             base.sensMean = sensMean;
             base.sensMax = sensMax;
@@ -16,7 +16,7 @@ namespace WindowsFormsApp1
             base.timestep = timestep;
             base.lenght = lenght * 60; //lenght is converted to seconds
         }
-        public void GenerateCurve()
+        internal override void GenerateCurve()
         {
             //create the senseCurve, the start of the curve and start populating it with random values
             List<SensitivityPoint> sensCurve = new List<SensitivityPoint>();

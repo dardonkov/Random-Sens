@@ -77,7 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AgressiveCurve.cs" />
+    <Compile Include="Classes\AggressiveCurve.cs" />
     <Compile Include="Classes\LogNormalCurve.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

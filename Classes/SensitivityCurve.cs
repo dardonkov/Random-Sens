@@ -47,5 +47,6 @@ namespace WindowsFormsApp1
             //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
         }
+        internal abstract void GenerateCurve();
     }
 }
