@@ -29,13 +29,12 @@ namespace WindowsFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Pause = new System.Windows.Forms.Button();
-            this.box_BaseSens = new System.Windows.Forms.TextBox();
             this.box_Max_Sens = new System.Windows.Forms.TextBox();
             this.box_Min_Sens = new System.Windows.Forms.TextBox();
             this.box_Timestep = new System.Windows.Forms.TextBox();
@@ -54,6 +53,9 @@ namespace WindowsFormsApp1
             this.label_mean = new System.Windows.Forms.Label();
             this.label_std = new System.Windows.Forms.Label();
             this.label_sensmultiplier = new System.Windows.Forms.Label();
+            this.box_BaseSens = new System.Windows.Forms.TextBox();
+            this.btn_Load_Defaults = new System.Windows.Forms.Button();
+            this.btn_Save_Defaults = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sensCurveChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,21 +78,14 @@ namespace WindowsFormsApp1
             this.btn_Pause.Text = "Pause";
             this.btn_Pause.UseVisualStyleBackColor = true;
             // 
-            // box_BaseSens
-            // 
-            this.box_BaseSens.Location = new System.Drawing.Point(186, 58);
-            this.box_BaseSens.Name = "box_BaseSens";
-            this.box_BaseSens.Size = new System.Drawing.Size(75, 20);
-            this.box_BaseSens.TabIndex = 3;
-            this.box_BaseSens.Validating += new System.ComponentModel.CancelEventHandler(this.box_double_Validating);
-            this.box_BaseSens.Validated += new System.EventHandler(this.box_Validated);
-            // 
             // box_Max_Sens
             // 
             this.box_Max_Sens.Location = new System.Drawing.Point(186, 84);
             this.box_Max_Sens.Name = "box_Max_Sens";
             this.box_Max_Sens.Size = new System.Drawing.Size(75, 20);
             this.box_Max_Sens.TabIndex = 4;
+            this.box_Max_Sens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Max_Sens_Validating);
+            this.box_Max_Sens.Validated += new System.EventHandler(this.box_Validated);
             // 
             // box_Min_Sens
             // 
@@ -98,6 +93,8 @@ namespace WindowsFormsApp1
             this.box_Min_Sens.Name = "box_Min_Sens";
             this.box_Min_Sens.Size = new System.Drawing.Size(75, 20);
             this.box_Min_Sens.TabIndex = 5;
+            this.box_Min_Sens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Min_Sens_Validating);
+            this.box_Min_Sens.Validated += new System.EventHandler(this.box_Validated);
             // 
             // box_Timestep
             // 
@@ -105,6 +102,8 @@ namespace WindowsFormsApp1
             this.box_Timestep.Name = "box_Timestep";
             this.box_Timestep.Size = new System.Drawing.Size(75, 20);
             this.box_Timestep.TabIndex = 6;
+            this.box_Timestep.Validating += new System.ComponentModel.CancelEventHandler(this.box_Timestep_Validating);
+            this.box_Timestep.Validated += new System.EventHandler(this.box_Validated);
             // 
             // box_Spread
             // 
@@ -112,6 +111,8 @@ namespace WindowsFormsApp1
             this.box_Spread.Name = "box_Spread";
             this.box_Spread.Size = new System.Drawing.Size(75, 20);
             this.box_Spread.TabIndex = 7;
+            this.box_Spread.Validating += new System.ComponentModel.CancelEventHandler(this.box_Spread_Validating);
+            this.box_Spread.Validated += new System.EventHandler(this.box_Validated);
             // 
             // label_Type
             // 
@@ -194,6 +195,8 @@ namespace WindowsFormsApp1
             this.box_Smoothing.Name = "box_Smoothing";
             this.box_Smoothing.Size = new System.Drawing.Size(75, 20);
             this.box_Smoothing.TabIndex = 15;
+            this.box_Smoothing.Validating += new System.ComponentModel.CancelEventHandler(this.box_Smoothing_Validating);
+            this.box_Smoothing.Validated += new System.EventHandler(this.box_Validated);
             // 
             // btn_Regen_Curve
             // 
@@ -207,48 +210,48 @@ namespace WindowsFormsApp1
             // 
             // sensCurveChart
             // 
-            chartArea4.AxisX.IsMarginVisible = false;
-            chartArea4.AxisX.Title = "Time";
-            chartArea4.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea4.AxisY.IsMarginVisible = false;
-            chartArea4.AxisY.Title = "Sensitivity multiplier";
-            chartArea4.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea4.Name = "ChartArea1";
-            this.sensCurveChart.ChartAreas.Add(chartArea4);
-            legend4.Enabled = false;
-            legend4.Name = "Legend1";
-            this.sensCurveChart.Legends.Add(legend4);
+            chartArea3.AxisX.IsMarginVisible = false;
+            chartArea3.AxisX.Title = "Time";
+            chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.AxisY.IsMarginVisible = false;
+            chartArea3.AxisY.Title = "Sensitivity multiplier";
+            chartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.Name = "ChartArea1";
+            this.sensCurveChart.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.sensCurveChart.Legends.Add(legend3);
             this.sensCurveChart.Location = new System.Drawing.Point(298, 32);
             this.sensCurveChart.Name = "sensCurveChart";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.sensCurveChart.Series.Add(series4);
-            this.sensCurveChart.Size = new System.Drawing.Size(641, 342);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.sensCurveChart.Series.Add(series3);
+            this.sensCurveChart.Size = new System.Drawing.Size(726, 405);
             this.sensCurveChart.TabIndex = 18;
             this.sensCurveChart.Text = "Sensitivity Curve";
-            title4.Name = "Title1";
-            title4.Text = "Sensitivity Curve";
-            this.sensCurveChart.Titles.Add(title4);
+            title3.Name = "Title1";
+            title3.Text = "Sensitivity Curve";
+            this.sensCurveChart.Titles.Add(title3);
             // 
             // label_mean
             // 
             this.label_mean.AutoSize = true;
             this.label_mean.Location = new System.Drawing.Point(21, 244);
             this.label_mean.Name = "label_mean";
-            this.label_mean.Size = new System.Drawing.Size(67, 13);
+            this.label_mean.Size = new System.Drawing.Size(119, 13);
             this.label_mean.TabIndex = 19;
-            this.label_mean.Text = "Curve mean:";
+            this.label_mean.Text = "Generated curve mean:";
             // 
             // label_std
             // 
             this.label_std.AutoSize = true;
             this.label_std.Location = new System.Drawing.Point(21, 271);
             this.label_std.Name = "label_std";
-            this.label_std.Size = new System.Drawing.Size(29, 13);
+            this.label_std.Size = new System.Drawing.Size(110, 13);
             this.label_std.TabIndex = 20;
-            this.label_std.Text = "Std: ";
+            this.label_std.Text = "Generated curve std: ";
             // 
             // label_sensmultiplier
             // 
@@ -259,11 +262,42 @@ namespace WindowsFormsApp1
             this.label_sensmultiplier.TabIndex = 21;
             this.label_sensmultiplier.Text = "Current sens multiplier:";
             // 
+            // box_BaseSens
+            // 
+            this.box_BaseSens.Location = new System.Drawing.Point(186, 58);
+            this.box_BaseSens.Name = "box_BaseSens";
+            this.box_BaseSens.Size = new System.Drawing.Size(75, 20);
+            this.box_BaseSens.TabIndex = 3;
+            this.box_BaseSens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Base_Sens_Validating);
+            this.box_BaseSens.Validated += new System.EventHandler(this.box_Validated);
+            // 
+            // btn_Load_Defaults
+            // 
+            this.btn_Load_Defaults.Location = new System.Drawing.Point(24, 391);
+            this.btn_Load_Defaults.Name = "btn_Load_Defaults";
+            this.btn_Load_Defaults.Size = new System.Drawing.Size(118, 45);
+            this.btn_Load_Defaults.TabIndex = 22;
+            this.btn_Load_Defaults.Text = "Restore default settings";
+            this.btn_Load_Defaults.UseVisualStyleBackColor = true;
+            this.btn_Load_Defaults.Click += new System.EventHandler(this.btn_Load_Defaults_Click);
+            // 
+            // btn_Save_Defaults
+            // 
+            this.btn_Save_Defaults.Location = new System.Drawing.Point(149, 391);
+            this.btn_Save_Defaults.Name = "btn_Save_Defaults";
+            this.btn_Save_Defaults.Size = new System.Drawing.Size(112, 45);
+            this.btn_Save_Defaults.TabIndex = 23;
+            this.btn_Save_Defaults.Text = "Save current settings as defaults";
+            this.btn_Save_Defaults.UseVisualStyleBackColor = true;
+            this.btn_Save_Defaults.Click += new System.EventHandler(this.btn_Save_Defaults_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(973, 397);
+            this.ClientSize = new System.Drawing.Size(1057, 460);
+            this.Controls.Add(this.btn_Save_Defaults);
+            this.Controls.Add(this.btn_Load_Defaults);
             this.Controls.Add(this.label_sensmultiplier);
             this.Controls.Add(this.label_std);
             this.Controls.Add(this.label_mean);
@@ -318,6 +352,8 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label label_mean;
         private System.Windows.Forms.Label label_std;
         private System.Windows.Forms.Label label_sensmultiplier;
+        private System.Windows.Forms.Button btn_Load_Defaults;
+        private System.Windows.Forms.Button btn_Save_Defaults;
     }
 }
 
