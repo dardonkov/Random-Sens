@@ -8,30 +8,28 @@ using MathNet.Numerics.Interpolation;
 
 namespace WindowsFormsApp1
 {
-    class SensitivityCurve
+    abstract class  SensitivityCurve
     {
-
+        public List<SensitivityPoint> sensCurve { get;  set; }
         protected Double sensMean;
         protected Double sensMax;
         protected Double sensMin;
         protected Double timestep;
-        protected Double lenght; //lenght of the pre-generated curve in minutes
+        protected Double lenght; //lenght of the pre-generated curve in minutes       
 
-        
-
-        public List<SensitivityPoint> InterpolateCurveAkima(List<SensitivityPoint> sensitivityCurve) // generates a smoother version of the random curve
+        public void InterpolateCurveAkima() // generates a smoother version of the random curve
         {
             List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
             // To do - make a smooth curve
-            double[] timestamp = sensitivityCurve.Select(sensCurve => sensCurve.timeStamp).ToArray();
-            double[] randomsense = sensitivityCurve.Select(sensCurve => sensCurve.sensitivity).ToArray();
+            double[] timestamp = sensCurve.Select(sensCurve => sensCurve.timeStamp).ToArray();
+            double[] randomsense = sensCurve.Select(sensCurve => sensCurve.sensitivity).ToArray();
             CubicSpline spline = CubicSpline.InterpolateAkima(timestamp, randomsense);
             for (double timecode = 0; timecode < this.lenght; timecode += 0.2)
             {
                 SensitivityPoint sensPoint = new SensitivityPoint(timecode, spline.Interpolate(timecode));
                 smoothCurve.Add(sensPoint);
             }
-            return smoothCurve;
+            sensCurve = smoothCurve;
         }
         public Chart GetChart(Chart sensChart, List<SensitivityPoint> sensitivityPoints) //Modifies the provided chart object to create a sensitivity over time chart
         {

@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace WindowsFormsApp1
 {
     class AgressiveCurve : SensitivityCurve
-    {
-        public List<SensitivityPoint> curve { get; private set; }
-        public List<SensitivityPoint> curveSmoth { get; private set; }
+    {  
         public AgressiveCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double lenght)
         {
             base.sensMean = sensMean;
@@ -44,7 +42,7 @@ namespace WindowsFormsApp1
             }
             SensitivityPoint finalSensPoint = new SensitivityPoint(timestep + this.lenght, 0);//Make sure the curve ends at base sens
             sensCurve.Add(finalSensPoint);
-            this.curve = sensCurve;
+            base.sensCurve = sensCurve;
         }
     }
 }

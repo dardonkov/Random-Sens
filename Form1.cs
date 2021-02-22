@@ -51,8 +51,8 @@ namespace WindowsFormsApp1
         {
             AgressiveCurve sensCurve = new AgressiveCurve(1,2,0.5,10,5);
             sensCurve.GenerateCurve();
-            sensCurve.InterpolateCurveAkima(sensCurve.curve);
-            sensCurveChart = sensCurve.GetChart(sensCurveChart, sensCurve.curveSmoth);
+            sensCurve.InterpolateCurveAkima();
+            sensCurveChart = sensCurve.GetChart(sensCurveChart, sensCurve.sensCurve);
         }
     }
 }
