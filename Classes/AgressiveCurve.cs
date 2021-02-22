@@ -40,7 +40,7 @@ namespace WindowsFormsApp1
                     sensCurve.Add(sensPoint);
                 }
             }
-            SensitivityPoint finalSensPoint = new SensitivityPoint(timestep + this.lenght, 0);//Make sure the curve ends at base sens
+            SensitivityPoint finalSensPoint = new SensitivityPoint(this.lenght, 1);//Make sure the curve ends at base sens
             sensCurve.Add(finalSensPoint);
             base.sensCurve = sensCurve;
         }

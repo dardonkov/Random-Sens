@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using WindowsFormsApp1.Classes;
 
 namespace WindowsFormsApp1
 {
@@ -49,7 +50,7 @@ namespace WindowsFormsApp1
         }
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
         {
-            AgressiveCurve sensCurve = new AgressiveCurve(1,2,0.5,10,5);
+            LogNormalCurve sensCurve = new LogNormalCurve(1,2,0.5,10,5,0.7);
             sensCurve.GenerateCurve();
             sensCurve.InterpolateCurveAkima();
             sensCurveChart = sensCurve.GetChart(sensCurveChart, sensCurve.sensCurve);
