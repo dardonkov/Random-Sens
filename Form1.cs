@@ -201,50 +201,61 @@ namespace WindowsFormsApp1
             {
                 Create_Curve();
             }
-            using (Process p = Process.GetCurrentProcess())// Initialize the inteception driver
+            using (Process p = Process.GetCurrentProcess())// Raise process priotity
                 p.PriorityClass = ProcessPriorityClass.High;
-            IntPtr context;
-            int device;
+
+            IntPtr context;            
             Interception.Stroke stroke = new Interception.Stroke();
             context = Interception.interception_create_context();
+            int device;
             Interception.InterceptionPredicate del = Interception.interception_is_mouse;
             Interception.interception_set_filter(
               context,
               del,
               (ushort)Interception.FilterMouseState.MouseMove);
-
+            double magigX = 0;
+            double magixY = 0;
             //Stopwatch stopwatch = new Stopwatch();// Start a stopwatch to be used to advance the curve
             
 
             int sw = 0; // Rough stopwatch in ms
             while (Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1) > 0)//Start listening for mouse strokes
             {
-                if (currentSensCurve.isFinished)
-                {
-                    break;
-                }
-                sw +=20; // Every cycle takes roughly 20ms so we add 20ms
-                SensitivityPoint currentPoint = currentSensCurve.GetCurrentPoint();
                 Interception.MouseStroke mstroke = stroke;
-
-                double y = mstroke.y * currentPoint.sensitivity;
-                mstroke.y = (int)y;
-
-                double x = mstroke.x * currentPoint.sensitivity;
-                mstroke.x = (int)x;
-                byte[] strokeBytes = Interception.getBytes(mstroke);
-                Interception.interception_send(context, device, strokeBytes, 1);
-                if (isPaused)
+                if (!(mstroke.flags == 0x001))
                 {
-                    sw-=20;
-                }
-                if (sw>timestep*1000) //when sw equals timestep in ms we advance the cursor
-                {
-                    box_CurrentSens.Text = currentPoint.sensitivity.ToString();
-                    currentSensCurve.AdvanceCursor();
-                    box_CurrentSens.Refresh();
-                    sw=0; // Reset the sw
-                }
+                    sw += 20; // Every cycle takes roughly 20ms so we add 20ms
+                    if (currentSensCurve.isFinished)
+                    {
+                        break;
+                    }
+                    SensitivityPoint currentPoint = currentSensCurve.GetCurrentPoint();
+
+
+                    double x = mstroke.x * currentPoint.sensitivity + magigX;
+                    double y = mstroke.y * currentPoint.sensitivity + magixY;
+
+                    magigX = x - Math.Floor(x);
+                    magixY = y - Math.Floor(y);
+
+                    mstroke.x = (int)Math.Floor(x);
+                    mstroke.y = (int)Math.Floor(y);
+
+                    byte[] strokeBytes = Interception.getBytes(mstroke);
+                    Interception.interception_send(context, device, strokeBytes, 1);
+                    if (isPaused)
+                    {
+                        sw -= 20;
+                    }
+                    if (sw > timestep * 1000) //when sw equals timestep in ms we advance the cursor
+                    {
+                        box_CurrentSens.Text = currentPoint.sensitivity.ToString();
+                        currentSensCurve.AdvanceCursor();
+                        box_CurrentSens.Refresh();
+                        sw = 0; // Reset the sw
+                        //stopwatch.Restart();
+                    }
+                }               
             }
             Interception.interception_destroy_context(context);
             if (isPaused == false)

@@ -46,8 +46,8 @@ namespace WindowsFormsApp1
             sens.ChartType = SeriesChartType.Line;
             sensChart.Series.Add(sens);
             // Format the chart to conform the data
-            //sensChart.ChartAreas[0].AxisY.Minimum = sensMin;
-            //sensChart.ChartAreas[0].AxisY.Maximum = sensMax;
+            sensChart.ChartAreas[0].AxisY.Minimum = sensMin;
+            sensChart.ChartAreas[0].AxisY.Maximum = sensMax;
             //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
         }  
