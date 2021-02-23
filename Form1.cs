@@ -230,7 +230,7 @@ namespace WindowsFormsApp1
                 double y = mstroke.y * currentPoint.sensitivity;
                 mstroke.y = (int)y;
 
-                double x = mstroke.x * currentPoint.sensitivity;
+                double x = mstroke.x * currentPoint.sensitivity ;
                 mstroke.x = (int)x;
                 byte[] strokeBytes = Interception.getBytes(mstroke);
                 Interception.interception_send(context, device, strokeBytes, 1);
