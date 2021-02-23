@@ -29,10 +29,10 @@ namespace WindowsFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Pause = new System.Windows.Forms.Button();
             this.box_Max_Sens = new System.Windows.Forms.TextBox();
@@ -56,6 +56,11 @@ namespace WindowsFormsApp1
             this.box_BaseSens = new System.Windows.Forms.TextBox();
             this.btn_Load_Defaults = new System.Windows.Forms.Button();
             this.btn_Save_Defaults = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.box_Curve_Timestep = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.box_CurrentSens = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.sensCurveChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,6 +82,7 @@ namespace WindowsFormsApp1
             this.btn_Pause.TabIndex = 1;
             this.btn_Pause.Text = "Pause";
             this.btn_Pause.UseVisualStyleBackColor = true;
+            this.btn_Pause.Click += new System.EventHandler(this.btn_Pause_Click);
             // 
             // box_Max_Sens
             // 
@@ -107,7 +113,7 @@ namespace WindowsFormsApp1
             // 
             // box_Spread
             // 
-            this.box_Spread.Location = new System.Drawing.Point(186, 162);
+            this.box_Spread.Location = new System.Drawing.Point(186, 190);
             this.box_Spread.Name = "box_Spread";
             this.box_Spread.Size = new System.Drawing.Size(75, 20);
             this.box_Spread.TabIndex = 7;
@@ -162,7 +168,7 @@ namespace WindowsFormsApp1
             // label_spread
             // 
             this.label_spread.AutoSize = true;
-            this.label_spread.Location = new System.Drawing.Point(21, 162);
+            this.label_spread.Location = new System.Drawing.Point(21, 190);
             this.label_spread.Name = "label_spread";
             this.label_spread.Size = new System.Drawing.Size(41, 13);
             this.label_spread.TabIndex = 13;
@@ -183,7 +189,7 @@ namespace WindowsFormsApp1
             // label_smoothing
             // 
             this.label_smoothing.AutoSize = true;
-            this.label_smoothing.Location = new System.Drawing.Point(21, 188);
+            this.label_smoothing.Location = new System.Drawing.Point(21, 216);
             this.label_smoothing.Name = "label_smoothing";
             this.label_smoothing.Size = new System.Drawing.Size(57, 13);
             this.label_smoothing.TabIndex = 16;
@@ -191,7 +197,7 @@ namespace WindowsFormsApp1
             // 
             // box_Smoothing
             // 
-            this.box_Smoothing.Location = new System.Drawing.Point(186, 188);
+            this.box_Smoothing.Location = new System.Drawing.Point(186, 216);
             this.box_Smoothing.Name = "box_Smoothing";
             this.box_Smoothing.Size = new System.Drawing.Size(75, 20);
             this.box_Smoothing.TabIndex = 15;
@@ -210,30 +216,30 @@ namespace WindowsFormsApp1
             // 
             // sensCurveChart
             // 
-            chartArea3.AxisX.IsMarginVisible = false;
-            chartArea3.AxisX.Title = "Time";
-            chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea3.AxisY.IsMarginVisible = false;
-            chartArea3.AxisY.Title = "Sensitivity multiplier";
-            chartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea3.Name = "ChartArea1";
-            this.sensCurveChart.ChartAreas.Add(chartArea3);
-            legend3.Enabled = false;
-            legend3.Name = "Legend1";
-            this.sensCurveChart.Legends.Add(legend3);
+            chartArea2.AxisX.IsMarginVisible = false;
+            chartArea2.AxisX.Title = "Time";
+            chartArea2.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea2.AxisY.IsMarginVisible = false;
+            chartArea2.AxisY.Title = "Sensitivity multiplier";
+            chartArea2.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea2.Name = "ChartArea1";
+            this.sensCurveChart.ChartAreas.Add(chartArea2);
+            legend2.Enabled = false;
+            legend2.Name = "Legend1";
+            this.sensCurveChart.Legends.Add(legend2);
             this.sensCurveChart.Location = new System.Drawing.Point(298, 32);
             this.sensCurveChart.Name = "sensCurveChart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.sensCurveChart.Series.Add(series3);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.sensCurveChart.Series.Add(series2);
             this.sensCurveChart.Size = new System.Drawing.Size(726, 405);
             this.sensCurveChart.TabIndex = 18;
             this.sensCurveChart.Text = "Sensitivity Curve";
-            title3.Name = "Title1";
-            title3.Text = "Sensitivity Curve";
-            this.sensCurveChart.Titles.Add(title3);
+            title2.Name = "Title1";
+            title2.Text = "Sensitivity Curve";
+            this.sensCurveChart.Titles.Add(title2);
             // 
             // label_mean
             // 
@@ -291,11 +297,54 @@ namespace WindowsFormsApp1
             this.btn_Save_Defaults.UseVisualStyleBackColor = true;
             this.btn_Save_Defaults.Click += new System.EventHandler(this.btn_Save_Defaults_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(21, 164);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Curve Timestep";
+            // 
+            // box_Curve_Timestep
+            // 
+            this.box_Curve_Timestep.Location = new System.Drawing.Point(186, 164);
+            this.box_Curve_Timestep.Name = "box_Curve_Timestep";
+            this.box_Curve_Timestep.Size = new System.Drawing.Size(75, 20);
+            this.box_Curve_Timestep.TabIndex = 25;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(223, 244);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(37, 20);
+            this.textBox1.TabIndex = 26;
+            // 
+            // box_CurrentSens
+            // 
+            this.box_CurrentSens.Location = new System.Drawing.Point(223, 296);
+            this.box_CurrentSens.Name = "box_CurrentSens";
+            this.box_CurrentSens.ReadOnly = true;
+            this.box_CurrentSens.Size = new System.Drawing.Size(37, 20);
+            this.box_CurrentSens.TabIndex = 27;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(223, 270);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(37, 20);
+            this.textBox3.TabIndex = 28;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1057, 460);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.box_CurrentSens);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.box_Curve_Timestep);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_Save_Defaults);
             this.Controls.Add(this.btn_Load_Defaults);
             this.Controls.Add(this.label_sensmultiplier);
@@ -354,6 +403,11 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label label_sensmultiplier;
         private System.Windows.Forms.Button btn_Load_Defaults;
         private System.Windows.Forms.Button btn_Save_Defaults;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox box_Curve_Timestep;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox box_CurrentSens;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
 

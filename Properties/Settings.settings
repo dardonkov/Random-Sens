@@ -15,13 +15,16 @@
       <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="timestep" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">5</Value>
+      <Value Profile="(Default)">0.2</Value>
     </Setting>
     <Setting Name="spread" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.4</Value>
     </Setting>
     <Setting Name="smoothing" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="curve_Timestep" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5</Value>
     </Setting>
   </Settings>
 </SettingsFile>

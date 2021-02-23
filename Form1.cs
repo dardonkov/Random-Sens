@@ -23,8 +23,10 @@ namespace WindowsFormsApp1
         internal double sensMax;
         internal double sensMin;
         internal double timestep;
+        internal double curveTimestep;
         internal double spread;
         internal double smoothing;
+        internal bool isPaused = true;
         public Form1()
         {
             InitializeComponent();
@@ -32,53 +34,39 @@ namespace WindowsFormsApp1
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            using (Process p = Process.GetCurrentProcess())
-                p.PriorityClass = ProcessPriorityClass.High;
-
-            IntPtr context;
-            int device;
-
-            Interception.Stroke stroke = new Interception.Stroke();
-
-            context = Interception.interception_create_context();
-
-            Interception.InterceptionPredicate del = Interception.interception_is_mouse;
-            Interception.interception_set_filter(
-              context,
-              del,
-              (ushort)Interception.FilterMouseState.MouseMove);
-
-            while (Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1) > 0)
-            {
-                Interception.MouseStroke mstroke = stroke;
-                mstroke.y = mstroke.y * -1;
-                byte[] strokeBytes = Interception.getBytes(mstroke);
-                Interception.interception_send(context, device, strokeBytes, 1);
-            }
-            Interception.interception_destroy_context(context);
+            isPaused = false;
+            Randomize_Sens();
+        }
+        private void btn_Pause_Click(object sender, EventArgs e)
+        {
+            isPaused = true;
         }
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
         {
-            //SensitivityCurve sensCurve = new AggressiveCurve(1,2,0.5,10,5);//default sensCurve init
-            switch (cbox_Type.SelectedItem.ToString())
-            {
-                case "Aggressive Curve":
-                    currentSensCurve = new AggressiveCurve(sensMean,sensMax,sensMin,timestep,5);
-                    break;
-                case "Log Normal Curve":
-                    currentSensCurve = new LogNormalCurve(sensMean, sensMax, sensMin, timestep, 5, spread);
-                    break;
-            }
-            currentSensCurve.GenerateCurve();
-            currentSensCurve.InterpolateCurveAkima();
-            sensCurveChart = currentSensCurve.GetChart(sensCurveChart, currentSensCurve.sensCurve);
+            Create_Curve();
         }
         private void cbox_Type_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
-            Properties.Settings.Default.curve_Type = cb.SelectedIndex;
+            curveType = cb.SelectedIndex;
         }
 
+        private void btn_Save_Defaults_Click(object sender, EventArgs e)
+        {
+            Save_Default_Settings();
+        }
+        private void btn_Load_Defaults_Click(object sender, EventArgs e)
+        {
+            Load_Default_Settings();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Load_Default_Settings();
+        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
         #region Validators
         private void box_Base_Sens_Validating(object sender, CancelEventArgs e)
         {
@@ -134,7 +122,7 @@ namespace WindowsFormsApp1
                 e.Cancel = true;//Cancel and restore value from properties
                 box_Timestep.Text = timestep.ToString();
             }
-            else if ( res <= 0)
+            else if (res <= 0)
             {
                 e.Cancel = true;
                 box_Timestep.Text = timestep.ToString();
@@ -189,22 +177,79 @@ namespace WindowsFormsApp1
             Update_UI();
         }
         #endregion Validators
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Load_Default_Settings();
-        }
         #region Helper methods
+        private void Create_Curve()
+        {
+            //SensitivityCurve sensCurve = new AggressiveCurve(1,2,0.5,10,5);//default sensCurve init
+            switch (cbox_Type.SelectedItem.ToString())
+            {
+                case "Aggressive Curve":
+                    currentSensCurve = new AggressiveCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, 5);
+                    break;
+                case "Log Normal Curve":
+                    currentSensCurve = new LogNormalCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, 5, spread);
+                    break;
+            }
+            currentSensCurve.GenerateCurve();
+            currentSensCurve.InterpolateCurveAkima();
+            sensCurveChart = currentSensCurve.GetChart(sensCurveChart, currentSensCurve.sensCurve);
+        }
+        private void Randomize_Sens()
+        {
+            if (currentSensCurve==null)
+            {
+                Create_Curve();
+            }
+            using (Process p = Process.GetCurrentProcess())// Initialize the inteception driver
+                p.PriorityClass = ProcessPriorityClass.High;
+            IntPtr context;
+            int device;
+            Interception.Stroke stroke = new Interception.Stroke();
+            context = Interception.interception_create_context();
+            Interception.InterceptionPredicate del = Interception.interception_is_mouse;
+            Interception.interception_set_filter(
+              context,
+              del,
+              (ushort)Interception.FilterMouseState.MouseMove);
+
+            Stopwatch stopwatch = new Stopwatch();// Start a stopwatch to be used to advance the curve
+            stopwatch.Start();
+            while (Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1) > 0)//Start listening for mouse strokes
+            {
+                if (isPaused || currentSensCurve.isFinished())
+                {
+                    continue;
+                }
+                SensitivityPoint currentPoint = currentSensCurve.GetCurrentPoint();
+                Interception.MouseStroke mstroke = stroke;
+                double y = mstroke.y * currentPoint.sensitivity;
+                mstroke.y = (int)y;
+                double x = mstroke.x * currentPoint.sensitivity;
+                mstroke.x = (int)x;
+                byte[] strokeBytes = Interception.getBytes(mstroke);
+                Interception.interception_send(context, device, strokeBytes, 1);
+                box_CurrentSens.Text = currentPoint.sensitivity.ToString();
+                if (stopwatch.ElapsedMilliseconds>=timestep*1000)
+                {
+                    currentSensCurve.AdvanceCursor();
+                    stopwatch.Restart();
+                }                
+            }
+            Interception.interception_destroy_context(context);
+            if (isPaused == false)
+            {
+                Create_Curve();
+                Randomize_Sens();
+            }
+        }
         private void Load_Default_Settings()
         {
             curveType = Properties.Settings.Default.curve_Type;
             sensMean = Properties.Settings.Default.base_Sens;
             sensMax = Properties.Settings.Default.max_Sens;
-            sensMin = Properties.Settings.Default.min_Sens;           
+            sensMin = Properties.Settings.Default.min_Sens;
             timestep = Properties.Settings.Default.timestep;
+            curveTimestep = Properties.Settings.Default.curve_Timestep;
             spread = Properties.Settings.Default.spread;
             smoothing = Properties.Settings.Default.smoothing;
             Update_UI();
@@ -216,8 +261,9 @@ namespace WindowsFormsApp1
             Properties.Settings.Default.max_Sens = sensMax;
             Properties.Settings.Default.min_Sens = sensMin;
             Properties.Settings.Default.timestep = timestep;
+            Properties.Settings.Default.curve_Timestep = curveTimestep;
             Properties.Settings.Default.spread = spread;
-            Properties.Settings.Default.smoothing = smoothing;
+            Properties.Settings.Default.smoothing = smoothing;            
             Properties.Settings.Default.Save();
         }
         private void Update_UI()
@@ -228,17 +274,10 @@ namespace WindowsFormsApp1
             box_Max_Sens.Text = sensMax.ToString();
             box_Min_Sens.Text = sensMin.ToString();
             box_Timestep.Text = timestep.ToString();
+            box_Curve_Timestep.Text = curveTimestep.ToString();
             box_Spread.Text = spread.ToString();
             box_Smoothing.Text = smoothing.ToString();
         }
         #endregion Helper methods
-        private void btn_Save_Defaults_Click(object sender, EventArgs e)
-        {
-            Save_Default_Settings();
-        }
-        private void btn_Load_Defaults_Click(object sender, EventArgs e)
-        {
-            Load_Default_Settings();
-        }
     }
 }

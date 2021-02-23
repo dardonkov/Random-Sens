@@ -73,7 +73,7 @@ namespace WindowsFormsApp1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2")]
         public double timestep {
             get {
                 return ((double)(this["timestep"]));
@@ -104,6 +104,18 @@ namespace WindowsFormsApp1.Properties {
             }
             set {
                 this["smoothing"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public double curve_Timestep {
+            get {
+                return ((double)(this["curve_Timestep"]));
+            }
+            set {
+                this["curve_Timestep"] = value;
             }
         }
     }

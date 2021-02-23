@@ -8,11 +8,12 @@ namespace WindowsFormsApp1
 {
     class AggressiveCurve : SensitivityCurve
     {  
-        public AggressiveCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double lenght)
+        public AggressiveCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double curveTimestep, Double lenght)
         {
             base.sensMean = sensMean;
             base.sensMax = sensMax;
             base.sensMin = sensMin;
+            base.curveTimestep = curveTimestep;
             base.timestep = timestep;
             base.lenght = lenght * 60; //lenght is converted to seconds
         }
@@ -24,7 +25,7 @@ namespace WindowsFormsApp1
             sensCurve.Add(firstPoint);
             Random rnd = new Random();
 
-            for (double timecode = timestep; timecode < this.lenght; timecode += timestep)
+            for (double timecode = curveTimestep; timecode < this.lenght; timecode += curveTimestep)
             {
                 double sensDirection = rnd.NextDouble(); //create a random double to determine if sense is going to be faster or slower
                 if (sensDirection >= 0.5)//sens will be faster

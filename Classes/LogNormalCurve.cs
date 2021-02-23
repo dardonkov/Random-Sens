@@ -11,12 +11,13 @@ namespace WindowsFormsApp1.Classes
     class LogNormalCurve : SensitivityCurve
     {
         public double sigma { get; private set; }
-        public LogNormalCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double lenght, double sigma)
+        public LogNormalCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double curveTimestep, Double lenght, double sigma)
         {
             base.sensMean = sensMean;
             base.sensMax = sensMax;
             base.sensMin = sensMin;
             base.timestep = timestep;
+            base.curveTimestep = curveTimestep;
             base.lenght = lenght * 60; //lenght is converted to seconds
             this.sigma = sigma;
         }
@@ -30,7 +31,7 @@ namespace WindowsFormsApp1.Classes
             var logNormal = new LogNormal(0, sigma);
 
 
-            for (double timecode = timestep; timecode < this.lenght; timecode += timestep)
+            for (double timecode = curveTimestep; timecode < this.lenght; timecode += curveTimestep)
             {
                 double randomSens;
                 do //keep trying to create a random sens within the set min/max boundries

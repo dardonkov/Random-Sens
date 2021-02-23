@@ -15,8 +15,10 @@ namespace WindowsFormsApp1
         protected Double sensMax;
         protected Double sensMin;
         protected Double timestep;
+        protected Double curveTimestep;
         protected Double lenght; //lenght of the pre-generated curve in minutes       
-
+        protected int cursor = 0;
+        internal abstract void GenerateCurve();
         public void InterpolateCurveAkima() // generates a smoother version of the random curve
         {
             List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
@@ -24,7 +26,7 @@ namespace WindowsFormsApp1
             double[] timestamp = sensCurve.Select(sensCurve => sensCurve.timeStamp).ToArray();
             double[] randomsense = sensCurve.Select(sensCurve => sensCurve.sensitivity).ToArray();
             CubicSpline spline = CubicSpline.InterpolateAkima(timestamp, randomsense);
-            for (double timecode = 0; timecode < this.lenght; timecode += 0.2)
+            for (double timecode = 0; timecode < this.lenght; timecode += timestep)
             {
                 SensitivityPoint sensPoint = new SensitivityPoint(timecode, spline.Interpolate(timecode));
                 smoothCurve.Add(sensPoint);
@@ -46,7 +48,25 @@ namespace WindowsFormsApp1
             sensChart.ChartAreas[0].AxisY.Maximum = sensMax;
             //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
+        }  
+        internal SensitivityPoint GetCurrentPoint()
+        {
+            return sensCurve[cursor];
         }
-        internal abstract void GenerateCurve();
+        internal void AdvanceCursor()
+        {
+            cursor++;
+        }
+        internal bool isFinished()
+        {
+            if (cursor >= sensCurve.Count)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
