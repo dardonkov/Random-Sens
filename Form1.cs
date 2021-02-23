@@ -200,6 +200,7 @@ namespace WindowsFormsApp1
             {
                 Create_Curve();
             }
+            Form1.ActiveForm.Refresh();
             using (Process p = Process.GetCurrentProcess())// Initialize the inteception driver
                 p.PriorityClass = ProcessPriorityClass.High;
             IntPtr context;
@@ -222,15 +223,18 @@ namespace WindowsFormsApp1
                 }
                 SensitivityPoint currentPoint = currentSensCurve.GetCurrentPoint();
                 Interception.MouseStroke mstroke = stroke;
+
                 double y = mstroke.y * currentPoint.sensitivity;
                 mstroke.y = (int)y;
+
                 double x = mstroke.x * currentPoint.sensitivity;
                 mstroke.x = (int)x;
                 byte[] strokeBytes = Interception.getBytes(mstroke);
                 Interception.interception_send(context, device, strokeBytes, 1);
-                box_CurrentSens.Text = currentPoint.sensitivity.ToString();
+                
                 if (stopwatch.ElapsedMilliseconds>=timestep*1000)
                 {
+                    box_CurrentSens.Text = currentPoint.sensitivity.ToString();
                     currentSensCurve.AdvanceCursor();
                     stopwatch.Restart();
                 }                
