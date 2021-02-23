@@ -213,10 +213,13 @@ namespace WindowsFormsApp1
               del,
               (ushort)Interception.FilterMouseState.MouseMove);
 
-            Stopwatch stopwatch = new Stopwatch();// Start a stopwatch to be used to advance the curve
-            stopwatch.Start();
+            //Stopwatch stopwatch = new Stopwatch();// Start a stopwatch to be used to advance the curve
+            
+
+            int sw = 0; // Rough stopwatch in ms
             while (Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1) > 0)//Start listening for mouse strokes
             {
+                sw=sw+20; // Every cycle takes roughly 20ms so we add 20ms
                 if (isPaused || currentSensCurve.isFinished())
                 {
                     continue;
@@ -232,12 +235,12 @@ namespace WindowsFormsApp1
                 byte[] strokeBytes = Interception.getBytes(mstroke);
                 Interception.interception_send(context, device, strokeBytes, 1);
                 
-                if (stopwatch.ElapsedMilliseconds>=timestep*1000)
+                if (sw>timestep*1000) //when sw equals timestep in ms we advance the cursor
                 {
-                    box_CurrentSens.Text = currentPoint.sensitivity.ToString();
+                    //box_CurrentSens.Text = currentPoint.sensitivity.ToString(); //not working in this thread???
                     currentSensCurve.AdvanceCursor();
-                    stopwatch.Restart();
-                }                
+                    sw=0; // Reset the sw
+                }
             }
             Interception.interception_destroy_context(context);
             if (isPaused == false)
