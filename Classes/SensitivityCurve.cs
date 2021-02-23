@@ -10,7 +10,8 @@ namespace WindowsFormsApp1
 {
     abstract class  SensitivityCurve
     {
-        public List<SensitivityPoint> sensCurve { get;  set; }
+        public List<SensitivityPoint> sensCurve { get; set; }
+        public bool isFinished = false;
         protected Double sensMean;
         protected Double sensMax;
         protected Double sensMin;
@@ -18,6 +19,7 @@ namespace WindowsFormsApp1
         protected Double curveTimestep;
         protected Double lenght; //lenght of the pre-generated curve in minutes       
         protected int cursor = 0;
+        
         internal abstract void GenerateCurve();
         public void InterpolateCurveAkima() // generates a smoother version of the random curve
         {
@@ -44,8 +46,8 @@ namespace WindowsFormsApp1
             sens.ChartType = SeriesChartType.Line;
             sensChart.Series.Add(sens);
             // Format the chart to conform the data
-            sensChart.ChartAreas[0].AxisY.Minimum = sensMin;
-            sensChart.ChartAreas[0].AxisY.Maximum = sensMax;
+            //sensChart.ChartAreas[0].AxisY.Minimum = sensMin;
+            //sensChart.ChartAreas[0].AxisY.Maximum = sensMax;
             //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
         }  
@@ -56,16 +58,9 @@ namespace WindowsFormsApp1
         internal void AdvanceCursor()
         {
             cursor++;
-        }
-        internal bool isFinished()
-        {
-            if (cursor >= sensCurve.Count)
+            if (cursor==sensCurve.Count)// When the cursor reaches the end of the curve mark it as finished
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                isFinished = true;
             }
         }
     }
