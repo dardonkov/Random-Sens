@@ -193,6 +193,7 @@ namespace WindowsFormsApp1
             currentSensCurve.GenerateCurve();
             currentSensCurve.InterpolateCurveAkima();
             sensCurveChart = currentSensCurve.GetChart(sensCurveChart, currentSensCurve.sensCurve);
+            sensCurveChart.Update();
         }
         private void Randomize_Sens()
         {
@@ -200,7 +201,6 @@ namespace WindowsFormsApp1
             {
                 Create_Curve();
             }
-            Form1.ActiveForm.Refresh();
             using (Process p = Process.GetCurrentProcess())// Initialize the inteception driver
                 p.PriorityClass = ProcessPriorityClass.High;
             IntPtr context;
@@ -219,11 +219,11 @@ namespace WindowsFormsApp1
             int sw = 0; // Rough stopwatch in ms
             while (Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1) > 0)//Start listening for mouse strokes
             {
-                sw=sw+20; // Every cycle takes roughly 20ms so we add 20ms
-                if (isPaused || currentSensCurve.isFinished())
+                if (currentSensCurve.isFinished)
                 {
-                    continue;
+                    break;
                 }
+                sw +=20; // Every cycle takes roughly 20ms so we add 20ms
                 SensitivityPoint currentPoint = currentSensCurve.GetCurrentPoint();
                 Interception.MouseStroke mstroke = stroke;
 
@@ -234,11 +234,15 @@ namespace WindowsFormsApp1
                 mstroke.x = (int)x;
                 byte[] strokeBytes = Interception.getBytes(mstroke);
                 Interception.interception_send(context, device, strokeBytes, 1);
-                
+                if (isPaused)
+                {
+                    sw-=20;
+                }
                 if (sw>timestep*1000) //when sw equals timestep in ms we advance the cursor
                 {
-                    //box_CurrentSens.Text = currentPoint.sensitivity.ToString(); //not working in this thread???
+                    box_CurrentSens.Text = currentPoint.sensitivity.ToString();
                     currentSensCurve.AdvanceCursor();
+                    box_CurrentSens.Refresh();
                     sw=0; // Reset the sw
                 }
             }
