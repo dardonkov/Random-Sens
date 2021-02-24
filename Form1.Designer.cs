@@ -88,36 +88,36 @@ namespace WindowsFormsApp1
             // 
             // box_Max_Sens
             // 
-            this.box_Max_Sens.Location = new System.Drawing.Point(186, 84);
+            this.box_Max_Sens.Location = new System.Drawing.Point(223, 84);
             this.box_Max_Sens.Name = "box_Max_Sens";
-            this.box_Max_Sens.Size = new System.Drawing.Size(75, 20);
+            this.box_Max_Sens.Size = new System.Drawing.Size(38, 20);
             this.box_Max_Sens.TabIndex = 4;
             this.box_Max_Sens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Max_Sens_Validating);
             this.box_Max_Sens.Validated += new System.EventHandler(this.box_Validated);
             // 
             // box_Min_Sens
             // 
-            this.box_Min_Sens.Location = new System.Drawing.Point(186, 110);
+            this.box_Min_Sens.Location = new System.Drawing.Point(223, 110);
             this.box_Min_Sens.Name = "box_Min_Sens";
-            this.box_Min_Sens.Size = new System.Drawing.Size(75, 20);
+            this.box_Min_Sens.Size = new System.Drawing.Size(38, 20);
             this.box_Min_Sens.TabIndex = 5;
             this.box_Min_Sens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Min_Sens_Validating);
             this.box_Min_Sens.Validated += new System.EventHandler(this.box_Validated);
             // 
             // box_Timestep
             // 
-            this.box_Timestep.Location = new System.Drawing.Point(186, 136);
+            this.box_Timestep.Location = new System.Drawing.Point(223, 136);
             this.box_Timestep.Name = "box_Timestep";
-            this.box_Timestep.Size = new System.Drawing.Size(75, 20);
+            this.box_Timestep.Size = new System.Drawing.Size(38, 20);
             this.box_Timestep.TabIndex = 6;
             this.box_Timestep.Validating += new System.ComponentModel.CancelEventHandler(this.box_Timestep_Validating);
             this.box_Timestep.Validated += new System.EventHandler(this.box_Validated);
             // 
             // box_Spread
             // 
-            this.box_Spread.Location = new System.Drawing.Point(186, 190);
+            this.box_Spread.Location = new System.Drawing.Point(223, 190);
             this.box_Spread.Name = "box_Spread";
-            this.box_Spread.Size = new System.Drawing.Size(75, 20);
+            this.box_Spread.Size = new System.Drawing.Size(38, 20);
             this.box_Spread.TabIndex = 7;
             this.box_Spread.Validating += new System.ComponentModel.CancelEventHandler(this.box_Spread_Validating);
             this.box_Spread.Validated += new System.EventHandler(this.box_Validated);
@@ -182,7 +182,7 @@ namespace WindowsFormsApp1
             this.cbox_Type.Items.AddRange(new object[] {
             "Aggressive Curve",
             "Log Normal Curve"});
-            this.cbox_Type.Location = new System.Drawing.Point(105, 32);
+            this.cbox_Type.Location = new System.Drawing.Point(104, 32);
             this.cbox_Type.Name = "cbox_Type";
             this.cbox_Type.Size = new System.Drawing.Size(156, 21);
             this.cbox_Type.TabIndex = 14;
@@ -199,9 +199,9 @@ namespace WindowsFormsApp1
             // 
             // box_Smoothing
             // 
-            this.box_Smoothing.Location = new System.Drawing.Point(186, 216);
+            this.box_Smoothing.Location = new System.Drawing.Point(223, 216);
             this.box_Smoothing.Name = "box_Smoothing";
-            this.box_Smoothing.Size = new System.Drawing.Size(75, 20);
+            this.box_Smoothing.Size = new System.Drawing.Size(38, 20);
             this.box_Smoothing.TabIndex = 15;
             this.box_Smoothing.Validating += new System.ComponentModel.CancelEventHandler(this.box_Smoothing_Validating);
             this.box_Smoothing.Validated += new System.EventHandler(this.box_Validated);
@@ -229,14 +229,14 @@ namespace WindowsFormsApp1
             legend2.Enabled = false;
             legend2.Name = "Legend1";
             this.sensCurveChart.Legends.Add(legend2);
-            this.sensCurveChart.Location = new System.Drawing.Point(298, 32);
+            this.sensCurveChart.Location = new System.Drawing.Point(286, 32);
             this.sensCurveChart.Name = "sensCurveChart";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.sensCurveChart.Series.Add(series2);
-            this.sensCurveChart.Size = new System.Drawing.Size(779, 416);
+            this.sensCurveChart.Size = new System.Drawing.Size(791, 416);
             this.sensCurveChart.TabIndex = 18;
             this.sensCurveChart.Text = "Sensitivity Curve";
             title2.Name = "Title1";
@@ -272,9 +272,9 @@ namespace WindowsFormsApp1
             // 
             // box_BaseSens
             // 
-            this.box_BaseSens.Location = new System.Drawing.Point(186, 58);
+            this.box_BaseSens.Location = new System.Drawing.Point(223, 58);
             this.box_BaseSens.Name = "box_BaseSens";
-            this.box_BaseSens.Size = new System.Drawing.Size(75, 20);
+            this.box_BaseSens.Size = new System.Drawing.Size(38, 20);
             this.box_BaseSens.TabIndex = 3;
             this.box_BaseSens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Base_Sens_Validating);
             this.box_BaseSens.Validated += new System.EventHandler(this.box_Validated);
@@ -310,9 +310,9 @@ namespace WindowsFormsApp1
             // 
             // box_Curve_Timestep
             // 
-            this.box_Curve_Timestep.Location = new System.Drawing.Point(186, 164);
+            this.box_Curve_Timestep.Location = new System.Drawing.Point(223, 164);
             this.box_Curve_Timestep.Name = "box_Curve_Timestep";
-            this.box_Curve_Timestep.Size = new System.Drawing.Size(75, 20);
+            this.box_Curve_Timestep.Size = new System.Drawing.Size(38, 20);
             this.box_Curve_Timestep.TabIndex = 25;
             // 
             // box_Mean
@@ -322,6 +322,7 @@ namespace WindowsFormsApp1
             this.box_Mean.ReadOnly = true;
             this.box_Mean.Size = new System.Drawing.Size(53, 20);
             this.box_Mean.TabIndex = 26;
+            this.box_Mean.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // box_CurrentSens
             // 
@@ -330,6 +331,7 @@ namespace WindowsFormsApp1
             this.box_CurrentSens.ReadOnly = true;
             this.box_CurrentSens.Size = new System.Drawing.Size(111, 20);
             this.box_CurrentSens.TabIndex = 27;
+            this.box_CurrentSens.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // box_Std
             // 
@@ -338,6 +340,7 @@ namespace WindowsFormsApp1
             this.box_Std.ReadOnly = true;
             this.box_Std.Size = new System.Drawing.Size(53, 20);
             this.box_Std.TabIndex = 28;
+            this.box_Std.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label_curve_completion
             // 
@@ -355,12 +358,13 @@ namespace WindowsFormsApp1
             this.box_Curve_Completion.ReadOnly = true;
             this.box_Curve_Completion.Size = new System.Drawing.Size(37, 20);
             this.box_Curve_Completion.TabIndex = 30;
+            this.box_Curve_Completion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1108, 471);
+            this.ClientSize = new System.Drawing.Size(1108, 465);
             this.Controls.Add(this.box_Curve_Completion);
             this.Controls.Add(this.label_curve_completion);
             this.Controls.Add(this.box_Std);
@@ -391,6 +395,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.box_BaseSens);
             this.Controls.Add(this.btn_Pause);
             this.Controls.Add(this.btn_Start);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
