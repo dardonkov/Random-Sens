@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Classes
 {
@@ -34,43 +30,42 @@ namespace WindowsFormsApp1.Classes
               (ushort)Interception.FilterMouseState.MouseMove);
             double magicX = 0;
             double magicY = 0;
-            //Stopwatch stopwatch = new Stopwatch();// Start a stopwatch to be used to advance the curve
+            Stopwatch stopwatch = new Stopwatch();// Start a stopwatch to be used to advance the curve
 
-            int sw = 0; // Rough stopwatch in ms
+            //int sw = 0; // Rough stopwatch in ms
             while (Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1) > 0)//Start listening for mouse strokes
             {
-                Interception.MouseStroke mstroke = stroke;
-                if (!(mstroke.flags == 0x001))
+                //sw += 20; // Every cycle takes roughly 20ms so we add 20ms
+                stopwatch.Start();
+                if (sensitivityCurve.isFinished)
                 {
-                    sw += 20; // Every cycle takes roughly 20ms so we add 20ms
-                    if (sensitivityCurve.isFinished)
-                    {
-                        break;
-                    }
-                    SensitivityPoint currentPoint = sensitivityCurve.GetCurrentPoint();
+                    break;
+                }
+                Interception.MouseStroke mstroke = stroke;
+                SensitivityPoint currentPoint = sensitivityCurve.GetCurrentPoint();
 
-                    double x = mstroke.x * currentPoint.sensitivity + magicX;
-                    double y = mstroke.y * currentPoint.sensitivity + magicY;
+                double x = mstroke.x * currentPoint.sensitivity + magicX;
+                double y = mstroke.y * currentPoint.sensitivity + magicY;
 
-                    magicX = x - Math.Floor(x);
-                    magicY = y - Math.Floor(y);
+                magicX = x - Math.Floor(x);
+                magicY = y - Math.Floor(y);
 
-                    mstroke.x = (int)Math.Floor(x);
-                    mstroke.y = (int)Math.Floor(y);
+                mstroke.x = (int)Math.Floor(x);
+                mstroke.y = (int)Math.Floor(y);
 
-                    byte[] strokeBytes = Interception.getBytes(mstroke);
-                    Interception.interception_send(context, device, strokeBytes, 1);
-                    if (isPaused)
-                    {
-                        sw -= 20;
-                    }
-                    if (sw > sensitivityCurve.timestep * 1000) //when sw equals timestep in ms we advance the cursor
-                    {
-                        currentSens = currentPoint.sensitivity;
-                        sensitivityCurve.AdvanceCursor();
-                        sw = 0; // Reset the sw
-                        //stopwatch.Restart();
-                    }
+                byte[] strokeBytes = Interception.getBytes(mstroke);
+                Interception.interception_send(context, device, strokeBytes, 1);
+                if (isPaused)
+                {
+                    //sw -= 20;
+                    stopwatch.Reset();
+                }
+                if (stopwatch.ElapsedMilliseconds > sensitivityCurve.timestep * 1000) //when sw equals timestep in ms we advance the cursor
+                {
+                    currentSens = currentPoint.sensitivity;
+                    sensitivityCurve.AdvanceCursor();
+                    //sw = 0; // Reset the sw
+                    stopwatch.Restart();
                 }
             }
             Interception.interception_destroy_context(context);
