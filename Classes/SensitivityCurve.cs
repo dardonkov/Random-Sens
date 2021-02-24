@@ -8,17 +8,17 @@ using MathNet.Numerics.Interpolation;
 
 namespace WindowsFormsApp1
 {
-    abstract class  SensitivityCurve
+    abstract class SensitivityCurve
     {
         public List<SensitivityPoint> sensCurve { get; set; }
-        public bool isFinished = false;
-        protected Double sensMean;
-        protected Double sensMax;
-        protected Double sensMin;
-        protected Double timestep;
-        protected Double curveTimestep;
-        protected Double lenght; //lenght of the pre-generated curve in minutes       
-        protected int cursor = 0;
+        internal bool isFinished = false;
+        public Double sensMean { get; internal set; }
+        public Double sensMax { get; internal set; }
+        public Double sensMin { get; internal set; }
+        public Double timestep { get; internal set; }
+        public Double curveTimestep { get; internal set; }
+        public Double lenght { get; internal set; } //lenght of the pre-generated curve in minutes       
+        internal int cursor = 0;
         
         internal abstract void GenerateCurve();
         public void InterpolateCurveAkima() // generates a smoother version of the random curve
@@ -35,11 +35,11 @@ namespace WindowsFormsApp1
             }
             sensCurve = smoothCurve;
         }
-        public Chart GetChart(Chart sensChart, List<SensitivityPoint> sensitivityPoints) //Modifies the provided chart object to create a sensitivity over time chart
+        public Chart GetChart(Chart sensChart) //Modifies the provided chart object to create a sensitivity over time chart
         {
             sensChart.Series.Clear(); // Clear any existing series and add the sens points
             var sens = new Series("Sensitivity");
-            foreach (var point in sensitivityPoints)
+            foreach (var point in sensCurve)
             {
                 sens.Points.AddXY(point.timeStamp, point.sensitivity);
             }
@@ -62,6 +62,11 @@ namespace WindowsFormsApp1
             {
                 isFinished = true;
             }
+        }
+        internal void RegenerateCurve()
+        {
+            GenerateCurve(); //Generate curve again and reset cursor
+            cursor = 0;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         internal SensitivityCurve currentSensCurve;
+        internal RandomizeSens randomize;
         internal int curveType;
         internal double sensMean;
         internal double sensMax;
@@ -27,6 +28,7 @@ namespace WindowsFormsApp1
         internal double spread;
         internal double smoothing;
         internal bool isPaused = true;
+        
         public Form1()
         {
             InitializeComponent();
@@ -35,11 +37,32 @@ namespace WindowsFormsApp1
         private void btn_Start_Click(object sender, EventArgs e)
         {
             isPaused = false;
-            Randomize_Sens();
+            if (currentSensCurve == null)
+            {
+                Create_Curve();
+            }
+            randomize = new RandomizeSens(currentSensCurve);
+            Task.Run(() =>
+            {
+                randomize.Start();
+            });
+            Task.Run(() =>
+            {
+                while (isPaused == false)
+                {
+                    Action act = () => box_CurrentSens.Text = randomize.currentSens.ToString();
+                    box_CurrentSens.Invoke(act);
+                    System.Threading.Thread.Sleep(200);
+                }
+            });
         }
         private void btn_Pause_Click(object sender, EventArgs e)
         {
             isPaused = true;
+            Task.Run(() =>
+            {
+                randomize.Pause();
+            });
         }
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
         {
@@ -192,78 +215,10 @@ namespace WindowsFormsApp1
             }
             currentSensCurve.GenerateCurve();
             currentSensCurve.InterpolateCurveAkima();
-            sensCurveChart = currentSensCurve.GetChart(sensCurveChart, currentSensCurve.sensCurve);
+            sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
             sensCurveChart.Update();
         }
-        private void Randomize_Sens()
-        {
-            if (currentSensCurve==null)
-            {
-                Create_Curve();
-            }
-            using (Process p = Process.GetCurrentProcess())// Raise process priotity
-                p.PriorityClass = ProcessPriorityClass.High;
 
-            IntPtr context;            
-            Interception.Stroke stroke = new Interception.Stroke();
-            context = Interception.interception_create_context();
-            int device;
-            Interception.InterceptionPredicate del = Interception.interception_is_mouse;
-            Interception.interception_set_filter(
-              context,
-              del,
-              (ushort)Interception.FilterMouseState.MouseMove);
-            double magigX = 0;
-            double magixY = 0;
-            //Stopwatch stopwatch = new Stopwatch();// Start a stopwatch to be used to advance the curve
-            
-
-            int sw = 0; // Rough stopwatch in ms
-            while (Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1) > 0)//Start listening for mouse strokes
-            {
-                Interception.MouseStroke mstroke = stroke;
-                if (!(mstroke.flags == 0x001))
-                {
-                    sw += 20; // Every cycle takes roughly 20ms so we add 20ms
-                    if (currentSensCurve.isFinished)
-                    {
-                        break;
-                    }
-                    SensitivityPoint currentPoint = currentSensCurve.GetCurrentPoint();
-
-
-                    double x = mstroke.x * currentPoint.sensitivity + magigX;
-                    double y = mstroke.y * currentPoint.sensitivity + magixY;
-
-                    magigX = x - Math.Floor(x);
-                    magixY = y - Math.Floor(y);
-
-                    mstroke.x = (int)Math.Floor(x);
-                    mstroke.y = (int)Math.Floor(y);
-
-                    byte[] strokeBytes = Interception.getBytes(mstroke);
-                    Interception.interception_send(context, device, strokeBytes, 1);
-                    if (isPaused)
-                    {
-                        sw -= 20;
-                    }
-                    if (sw > timestep * 1000) //when sw equals timestep in ms we advance the cursor
-                    {
-                        box_CurrentSens.Text = currentPoint.sensitivity.ToString();
-                        currentSensCurve.AdvanceCursor();
-                        box_CurrentSens.Refresh();
-                        sw = 0; // Reset the sw
-                        //stopwatch.Restart();
-                    }
-                }               
-            }
-            Interception.interception_destroy_context(context);
-            if (isPaused == false)
-            {
-                Create_Curve();
-                Randomize_Sens();
-            }
-        }
         private void Load_Default_Settings()
         {
             curveType = Properties.Settings.Default.curve_Type;

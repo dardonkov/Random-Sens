@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Classes\AggressiveCurve.cs" />
     <Compile Include="Classes\LogNormalCurve.cs" />
+    <Compile Include="Classes\RandomizeSens.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
