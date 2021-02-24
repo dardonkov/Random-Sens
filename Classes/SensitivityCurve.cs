@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MathNet.Numerics.Interpolation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
-using MathNet.Numerics.Interpolation;
 
 namespace WindowsFormsApp1
 {
@@ -19,7 +17,7 @@ namespace WindowsFormsApp1
         public Double curveTimestep { get; internal set; }
         public Double lenght { get; internal set; } //lenght of the pre-generated curve in minutes       
         internal int cursor = 0;
-        
+
         internal abstract void GenerateCurve();
         public void InterpolateCurveAkima() // generates a smoother version of the random curve
         {
@@ -46,11 +44,11 @@ namespace WindowsFormsApp1
             sens.ChartType = SeriesChartType.Line;
             sensChart.Series.Add(sens);
             // Format the chart to conform the data
-            sensChart.ChartAreas[0].AxisY.Minimum = sensMin-0.1;
-            sensChart.ChartAreas[0].AxisY.Maximum = sensMax+0.1;
+            sensChart.ChartAreas[0].AxisY.Minimum = sensMin - 0.1;
+            sensChart.ChartAreas[0].AxisY.Maximum = sensMax + 0.1;
             //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
-        }  
+        }
         public double GetCompletion()
         {
             double completionP = (100 * cursor) / sensCurve.Count();
@@ -64,7 +62,7 @@ namespace WindowsFormsApp1
         internal virtual double GetMean()
         {
             double mean = sensCurve.Select(sensCurve => sensCurve.sensitivity).Average();
-            return Math.Round(mean,5);
+            return Math.Round(mean, 5);
         }
         internal virtual double Stdev()
         {
@@ -72,12 +70,12 @@ namespace WindowsFormsApp1
             double mean = GetMean();
             double sum = values.Sum(d => Math.Pow(d - mean, 2));
             double stdev = Math.Sqrt((sum) / (values.Count() - 1));
-            return Math.Round(stdev,5);
+            return Math.Round(stdev, 5);
         }
         internal void AdvanceCursor()
         {
             cursor++;
-            if (cursor==sensCurve.Count)// When the cursor reaches the end of the curve mark it as finished
+            if (cursor == sensCurve.Count)// When the cursor reaches the end of the curve mark it as finished
             {
                 isFinished = true;
             }

@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Configuration;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 using WindowsFormsApp1.Classes;
 
 namespace WindowsFormsApp1
@@ -249,7 +240,7 @@ namespace WindowsFormsApp1
             Properties.Settings.Default.timestep = timestep;
             Properties.Settings.Default.curve_Timestep = curveTimestep;
             Properties.Settings.Default.spread = spread;
-            Properties.Settings.Default.smoothing = smoothing;            
+            Properties.Settings.Default.smoothing = smoothing;
             Properties.Settings.Default.Save();
         }
         private void Display_Settings()
@@ -268,7 +259,7 @@ namespace WindowsFormsApp1
         {
             Task.Run(() =>
             {
-            while (isPaused == false && isMinimized == false)
+                while (isPaused == false && isMinimized == false)
                 {
                     Action updateCurrentSens = () => box_CurrentSens.Text = randomize.currentSens.ToString();
                     Action updateCompletion = () => box_Curve_Completion.Text = currentSensCurve.GetCompletion().ToString() + "%";

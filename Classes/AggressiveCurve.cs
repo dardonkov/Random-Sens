@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
     class AggressiveCurve : SensitivityCurve
-    {  
+    {
         public AggressiveCurve(Double sensMean, Double sensMax, Double sensMin, Double timestep, Double curveTimestep, Double lenght)
         {
             base.sensMean = sensMean;
