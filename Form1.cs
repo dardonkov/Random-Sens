@@ -28,7 +28,7 @@ namespace WindowsFormsApp1
         internal double spread;
         internal double smoothing;
         internal bool isPaused = true;
-        
+        internal bool isMinimized = false;
         public Form1()
         {
             InitializeComponent();
@@ -69,7 +69,6 @@ namespace WindowsFormsApp1
             ComboBox cb = (ComboBox)sender;
             curveType = cb.SelectedIndex;
         }
-
         private void btn_Save_Defaults_Click(object sender, EventArgs e)
         {
             Save_Default_Settings();
@@ -85,6 +84,18 @@ namespace WindowsFormsApp1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                isMinimized = true;
+            }
+            if (WindowState == FormWindowState.Normal)
+            {
+                isMinimized = false;
+                Update_UI(200);
+            }
         }
         #region Validators
         private void box_Base_Sens_Validating(object sender, CancelEventArgs e)
@@ -257,7 +268,7 @@ namespace WindowsFormsApp1
         {
             Task.Run(() =>
             {
-                while (isPaused == false)
+            while (isPaused == false && isMinimized == false)
                 {
                     Action updateCurrentSens = () => box_CurrentSens.Text = randomize.currentSens.ToString();
                     Action updateCompletion = () => box_Curve_Completion.Text = currentSensCurve.GetCompletion().ToString() + "%";
