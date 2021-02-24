@@ -257,7 +257,7 @@ namespace WindowsFormsApp1
         {
             Task.Run(() =>
             {
-                while (isPaused == false)
+                while (isPaused == false && Form1.ActiveForm.WindowState == FormWindowState.Normal)
                 {
                     Action updateCurrentSens = () => box_CurrentSens.Text = randomize.currentSens.ToString();
                     Action updateCompletion = () => box_Curve_Completion.Text = currentSensCurve.GetCompletion().ToString() + "%";
