@@ -51,6 +51,11 @@ namespace WindowsFormsApp1
             //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
         }  
+        public double GetCompletion()
+        {
+            double completionP = (100 * cursor) / sensCurve.Count();
+            return Math.Round(completionP, 2);
+        }
         internal SensitivityPoint GetCurrentPoint()
         {
             return sensCurve[cursor];
@@ -67,6 +72,7 @@ namespace WindowsFormsApp1
         {
             GenerateCurve(); //Generate curve again and reset cursor
             cursor = 0;
+            isFinished = false;
         }
     }
 }

@@ -37,6 +37,8 @@ namespace WindowsFormsApp1
         private void btn_Start_Click(object sender, EventArgs e)
         {
             isPaused = false;
+            btn_Regen_Curve.Enabled = false;
+            btn_Start.Enabled = false;
             if (currentSensCurve == null)
             {
                 Create_Curve();
@@ -46,19 +48,13 @@ namespace WindowsFormsApp1
             {
                 randomize.Start();
             });
-            Task.Run(() =>
-            {
-                while (isPaused == false)
-                {
-                    Action act = () => box_CurrentSens.Text = randomize.currentSens.ToString();
-                    box_CurrentSens.Invoke(act);
-                    System.Threading.Thread.Sleep(200);
-                }
-            });
+            Update_UI(200);
         }
         private void btn_Pause_Click(object sender, EventArgs e)
         {
             isPaused = true;
+            btn_Regen_Curve.Enabled = true;
+            btn_Start.Enabled = true;
             Task.Run(() =>
             {
                 randomize.Pause();
@@ -197,7 +193,7 @@ namespace WindowsFormsApp1
                 default:
                     break;
             }
-            Update_UI();
+            Display_Settings();
         }
         #endregion Validators
         #region Helper methods
@@ -229,7 +225,7 @@ namespace WindowsFormsApp1
             curveTimestep = Properties.Settings.Default.curve_Timestep;
             spread = Properties.Settings.Default.spread;
             smoothing = Properties.Settings.Default.smoothing;
-            Update_UI();
+            Display_Settings();
         }
         private void Save_Default_Settings()
         {
@@ -243,7 +239,7 @@ namespace WindowsFormsApp1
             Properties.Settings.Default.smoothing = smoothing;            
             Properties.Settings.Default.Save();
         }
-        private void Update_UI()
+        private void Display_Settings()
         {
             cbox_Type.SelectedIndex = curveType;
             box_BaseSens.Text = sensMean.ToString();
@@ -254,6 +250,22 @@ namespace WindowsFormsApp1
             box_Curve_Timestep.Text = curveTimestep.ToString();
             box_Spread.Text = spread.ToString();
             box_Smoothing.Text = smoothing.ToString();
+        }
+        private void Update_UI(int refreshRate)
+        {
+            Task.Run(() =>
+            {
+                while (isPaused == false)
+                {
+                    Action updateCurrentSens = () => box_CurrentSens.Text = randomize.currentSens.ToString();
+                    Action updateCompletion = () => box_Curve_Completion.Text = currentSensCurve.GetCompletion().ToString() + "%";
+                    Action updateChart = () => sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
+                    box_CurrentSens.Invoke(updateCurrentSens);
+                    box_Curve_Completion.Invoke(updateCompletion);
+                    sensCurveChart.Invoke(updateChart);
+                    System.Threading.Thread.Sleep(refreshRate);
+                }
+            });
         }
         #endregion Helper methods
     }
