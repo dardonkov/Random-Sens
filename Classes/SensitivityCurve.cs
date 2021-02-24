@@ -61,6 +61,19 @@ namespace WindowsFormsApp1
         {
             return sensCurve[cursor];
         }
+        internal virtual double GetMean()
+        {
+            double mean = sensCurve.Select(sensCurve => sensCurve.sensitivity).Average();
+            return Math.Round(mean,5);
+        }
+        internal virtual double Stdev()
+        {
+            List<double> values = sensCurve.Select(sensCurve => sensCurve.sensitivity).ToList();
+            double mean = GetMean();
+            double sum = values.Sum(d => Math.Pow(d - mean, 2));
+            double stdev = Math.Sqrt((sum) / (values.Count() - 1));
+            return Math.Round(stdev,5);
+        }
         internal void AdvanceCursor()
         {
             cursor++;

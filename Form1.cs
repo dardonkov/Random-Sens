@@ -213,6 +213,8 @@ namespace WindowsFormsApp1
             currentSensCurve.InterpolateCurveAkima();
             sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
             sensCurveChart.Update();
+            box_Std.Text = currentSensCurve.Stdev().ToString();
+            box_Mean.Text = currentSensCurve.GetMean().ToString();
         }
 
         private void Load_Default_Settings()
