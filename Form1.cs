@@ -260,9 +260,14 @@ namespace WindowsFormsApp1
                     Action updateCurrentSens = () => box_CurrentSens.Text = randomize.currentSens.ToString();
                     Action updateCompletion = () => box_Curve_Completion.Text = currentSensCurve.GetCompletion().ToString() + "%";
                     Action updateChart = () => sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
+                    Action updateChartCursorX = () => sensCurveChart.ChartAreas[0].CursorX.Position = currentSensCurve.GetCurrentPoint().timeStamp;
+                    Action updateChartCursorY = () => sensCurveChart.ChartAreas[0].CursorY.Position = currentSensCurve.GetCurrentPoint().sensitivity;
+
                     box_CurrentSens.Invoke(updateCurrentSens);
                     box_Curve_Completion.Invoke(updateCompletion);
                     sensCurveChart.Invoke(updateChart);
+                    sensCurveChart.Invoke(updateChartCursorX);
+                    sensCurveChart.Invoke(updateChartCursorY);
                     System.Threading.Thread.Sleep(refreshRate);
                 }
             });

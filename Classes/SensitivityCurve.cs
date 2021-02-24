@@ -46,15 +46,16 @@ namespace WindowsFormsApp1
             sens.ChartType = SeriesChartType.Line;
             sensChart.Series.Add(sens);
             // Format the chart to conform the data
-            sensChart.ChartAreas[0].AxisY.Minimum = sensMin;
-            sensChart.ChartAreas[0].AxisY.Maximum = sensMax;
+            sensChart.ChartAreas[0].AxisY.Minimum = sensMin-0.1;
+            sensChart.ChartAreas[0].AxisY.Maximum = sensMax+0.1;
             //sensChart.ChartAreas[0].AxisX.RoundAxisValues();
             return sensChart;
         }  
         public double GetCompletion()
         {
             double completionP = (100 * cursor) / sensCurve.Count();
-            return Math.Round(completionP, 2);
+            return completionP;
+            //return Math.Round(completionP,2);
         }
         internal SensitivityPoint GetCurrentPoint()
         {
