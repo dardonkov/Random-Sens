@@ -10,8 +10,6 @@ C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Debug\WindowsFormsApp1.csproj
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Debug\WindowsFormsApp1.exe
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Debug\WindowsFormsApp1.pdb
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Debug\WindowsFormsApp1.csprojAssemblyReference.cache
-C:\Users\Dar\source\repos\WindowsFormsApp1\bin\x64\Debug\System.Numerics.Vectors.dll
-C:\Users\Dar\source\repos\WindowsFormsApp1\bin\x64\Debug\System.Numerics.Vectors.xml
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Debug\WindowsFormsApp1.csproj.CopyComplete
 C:\Users\Dar\source\repos\WindowsFormsApp1\bin\x64\Debug\MathNet.Numerics.dll
 C:\Users\Dar\source\repos\WindowsFormsApp1\bin\x64\Debug\MathNet.Numerics.xml

@@ -24,9 +24,8 @@ namespace WindowsFormsApp1.Classes
             List<SensitivityPoint> sensCurve = new List<SensitivityPoint>();
             SensitivityPoint firstPoint = new SensitivityPoint(0, sensMean);
             sensCurve.Add(firstPoint);
-            System.Random rnd = SystemRandomSource.Default;
+            //Random rnd = SystemRandomSource.Default;
             var logNormal = new LogNormal(0, sigma);
-
 
             for (double timecode = curveTimestep; timecode < this.lenght; timecode += curveTimestep)
             {
