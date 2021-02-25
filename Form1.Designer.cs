@@ -29,10 +29,10 @@ namespace WindowsFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Pause = new System.Windows.Forms.Button();
             this.box_Max_Sens = new System.Windows.Forms.TextBox();
@@ -127,9 +127,9 @@ namespace WindowsFormsApp1
             this.label_Type.AutoSize = true;
             this.label_Type.Location = new System.Drawing.Point(21, 32);
             this.label_Type.Name = "label_Type";
-            this.label_Type.Size = new System.Drawing.Size(31, 13);
+            this.label_Type.Size = new System.Drawing.Size(58, 13);
             this.label_Type.TabIndex = 8;
-            this.label_Type.Text = "Type";
+            this.label_Type.Text = "Curve type";
             // 
             // label_basesens
             // 
@@ -218,30 +218,30 @@ namespace WindowsFormsApp1
             // 
             // sensCurveChart
             // 
-            chartArea3.AxisX.IsMarginVisible = false;
-            chartArea3.AxisX.Title = "Time";
-            chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea3.AxisY.IsMarginVisible = false;
-            chartArea3.AxisY.Title = "Sensitivity multiplier";
-            chartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea3.Name = "ChartArea1";
-            this.sensCurveChart.ChartAreas.Add(chartArea3);
-            legend3.Enabled = false;
-            legend3.Name = "Legend1";
-            this.sensCurveChart.Legends.Add(legend3);
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.Title = "Time";
+            chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisY.IsMarginVisible = false;
+            chartArea1.AxisY.Title = "Sensitivity multiplier";
+            chartArea1.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.Name = "ChartArea1";
+            this.sensCurveChart.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.sensCurveChart.Legends.Add(legend1);
             this.sensCurveChart.Location = new System.Drawing.Point(286, 32);
             this.sensCurveChart.Name = "sensCurveChart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.sensCurveChart.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.sensCurveChart.Series.Add(series1);
             this.sensCurveChart.Size = new System.Drawing.Size(791, 416);
             this.sensCurveChart.TabIndex = 18;
             this.sensCurveChart.Text = "Sensitivity Curve";
-            title3.Name = "Title1";
-            title3.Text = "Sensitivity Curve";
-            this.sensCurveChart.Titles.Add(title3);
+            title1.Name = "Title1";
+            title1.Text = "Sensitivity Curve";
+            this.sensCurveChart.Titles.Add(title1);
             // 
             // label_mean
             // 
@@ -398,7 +398,7 @@ namespace WindowsFormsApp1
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Random-Sens";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
