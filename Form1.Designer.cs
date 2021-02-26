@@ -281,7 +281,7 @@ namespace WindowsFormsApp1
             // 
             // btn_Load_Defaults
             // 
-            this.btn_Load_Defaults.Location = new System.Drawing.Point(24, 347);
+            this.btn_Load_Defaults.Location = new System.Drawing.Point(142, 348);
             this.btn_Load_Defaults.Name = "btn_Load_Defaults";
             this.btn_Load_Defaults.Size = new System.Drawing.Size(118, 45);
             this.btn_Load_Defaults.TabIndex = 22;
@@ -291,11 +291,11 @@ namespace WindowsFormsApp1
             // 
             // btn_Save_Defaults
             // 
-            this.btn_Save_Defaults.Location = new System.Drawing.Point(149, 347);
+            this.btn_Save_Defaults.Location = new System.Drawing.Point(24, 347);
             this.btn_Save_Defaults.Name = "btn_Save_Defaults";
             this.btn_Save_Defaults.Size = new System.Drawing.Size(112, 45);
             this.btn_Save_Defaults.TabIndex = 23;
-            this.btn_Save_Defaults.Text = "Save current settings as defaults";
+            this.btn_Save_Defaults.Text = "Save default settings";
             this.btn_Save_Defaults.UseVisualStyleBackColor = true;
             this.btn_Save_Defaults.Click += new System.EventHandler(this.btn_Save_Defaults_Click);
             // 
