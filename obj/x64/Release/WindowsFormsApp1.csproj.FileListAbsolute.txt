@@ -1,0 +1,5 @@
+C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\WindowsFormsApp1.csprojAssemblyReference.cache
+C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\WindowsFormsApp1.Form1.resources
+C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\WindowsFormsApp1.csproj.CoreCompileInputs.cache
