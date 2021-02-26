@@ -8,7 +8,7 @@ It aims to be a successor to the Sensitivity Randomizer by Whisper & El Bad - ht
 
 ## Installation
 
-1. Download the latest release from the Github page - LINK
+1. Download the latest release from the Github page - https://github.com/dardonkov/Random-Sens/releases
 *always check newer releases*
 
 2. Before you start, you need to install the Interception driver which is used to capture/modify mouse input. If you have used Interaccel or the Sensitivity 
