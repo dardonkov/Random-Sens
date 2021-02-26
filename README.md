@@ -3,7 +3,7 @@ Disclaimer: This is a very much work-in-progress(WIP) tool, bugs are to be expec
 ## Overview
 
 This program is used to dynamically alter your effective mouse sensitivity according to a configurable pre-generated curve. It is mainly intended to be used while aim training,
-in order to improve mouse control in general. It comes with a fully functional GUI that allows you to previews the sensitivity curves and follow the progress in real-time.
+in order to improve mouse control in general. It comes with a fully functional GUI that allows you to preview the sensitivity curves and follow the progress in real-time.
 It aims to be a successor to the Sensitivity Randomizer by Whisper & El Bad - https://github.com/Whisperrr/SensitivityRandomizer
 
 ## Installation
