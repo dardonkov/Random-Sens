@@ -12,8 +12,7 @@ It aims to be a successor to the Sensitivity Randomizer by Whisper & El Bad - ht
 *always check newer releases*
 
 2. Before you start, you need to install the Interception driver which is used to capture/modify mouse input. If you have used Interaccel or the Sensitivity 
-Randomizer by Whisper & El Bad, you already have the driver installed, so you can skip this step. If not, then you need to run the install-interception.exe 
-as Administrator and restart Windows. You can also install the Interception driver from the Github page: https://github.com/oblitum/Interception
+Randomizer by Whisper & El Bad, you already have the driver installed, so you can skip this step. If not, then you need to run a CMD as Administrator, navigate to the folder run install-interception.exe /install and restart Windows. You can also install the Interception driver from the Github page: https://github.com/oblitum/Interception
 
 3. Start the Random-Sens.exe
 
