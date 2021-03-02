@@ -12,3 +12,4 @@ C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\Random-sens.csproj.Co
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\Random-sens.csproj.CopyComplete
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\WindowsFormsApp1.exe
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\WindowsFormsApp1.pdb
+C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\Random-sens.csprojAssemblyReference.cache

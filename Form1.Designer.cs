@@ -63,12 +63,14 @@ namespace WindowsFormsApp1
             this.box_Std = new System.Windows.Forms.TextBox();
             this.label_curve_completion = new System.Windows.Forms.Label();
             this.box_Curve_Completion = new System.Windows.Forms.TextBox();
+            this.label_Pause_Toggle = new System.Windows.Forms.Label();
+            this.box_Pause_Toggle = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.sensCurveChart)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(24, 398);
+            this.btn_Start.Location = new System.Drawing.Point(15, 430);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(75, 50);
             this.btn_Start.TabIndex = 0;
@@ -78,7 +80,7 @@ namespace WindowsFormsApp1
             // 
             // btn_Pause
             // 
-            this.btn_Pause.Location = new System.Drawing.Point(104, 398);
+            this.btn_Pause.Location = new System.Drawing.Point(95, 430);
             this.btn_Pause.Name = "btn_Pause";
             this.btn_Pause.Size = new System.Drawing.Size(75, 50);
             this.btn_Pause.TabIndex = 1;
@@ -88,7 +90,7 @@ namespace WindowsFormsApp1
             // 
             // box_Max_Sens
             // 
-            this.box_Max_Sens.Location = new System.Drawing.Point(223, 84);
+            this.box_Max_Sens.Location = new System.Drawing.Point(214, 64);
             this.box_Max_Sens.Name = "box_Max_Sens";
             this.box_Max_Sens.Size = new System.Drawing.Size(38, 20);
             this.box_Max_Sens.TabIndex = 4;
@@ -97,7 +99,7 @@ namespace WindowsFormsApp1
             // 
             // box_Min_Sens
             // 
-            this.box_Min_Sens.Location = new System.Drawing.Point(223, 110);
+            this.box_Min_Sens.Location = new System.Drawing.Point(214, 90);
             this.box_Min_Sens.Name = "box_Min_Sens";
             this.box_Min_Sens.Size = new System.Drawing.Size(38, 20);
             this.box_Min_Sens.TabIndex = 5;
@@ -106,7 +108,7 @@ namespace WindowsFormsApp1
             // 
             // box_Timestep
             // 
-            this.box_Timestep.Location = new System.Drawing.Point(223, 136);
+            this.box_Timestep.Location = new System.Drawing.Point(214, 116);
             this.box_Timestep.Name = "box_Timestep";
             this.box_Timestep.Size = new System.Drawing.Size(38, 20);
             this.box_Timestep.TabIndex = 6;
@@ -115,7 +117,7 @@ namespace WindowsFormsApp1
             // 
             // box_Spread
             // 
-            this.box_Spread.Location = new System.Drawing.Point(223, 190);
+            this.box_Spread.Location = new System.Drawing.Point(214, 170);
             this.box_Spread.Name = "box_Spread";
             this.box_Spread.Size = new System.Drawing.Size(38, 20);
             this.box_Spread.TabIndex = 7;
@@ -125,7 +127,7 @@ namespace WindowsFormsApp1
             // label_Type
             // 
             this.label_Type.AutoSize = true;
-            this.label_Type.Location = new System.Drawing.Point(21, 32);
+            this.label_Type.Location = new System.Drawing.Point(12, 12);
             this.label_Type.Name = "label_Type";
             this.label_Type.Size = new System.Drawing.Size(58, 13);
             this.label_Type.TabIndex = 8;
@@ -134,7 +136,7 @@ namespace WindowsFormsApp1
             // label_basesens
             // 
             this.label_basesens.AutoSize = true;
-            this.label_basesens.Location = new System.Drawing.Point(21, 58);
+            this.label_basesens.Location = new System.Drawing.Point(12, 38);
             this.label_basesens.Name = "label_basesens";
             this.label_basesens.Size = new System.Drawing.Size(81, 13);
             this.label_basesens.TabIndex = 9;
@@ -143,7 +145,7 @@ namespace WindowsFormsApp1
             // label_maxsens
             // 
             this.label_maxsens.AutoSize = true;
-            this.label_maxsens.Location = new System.Drawing.Point(21, 84);
+            this.label_maxsens.Location = new System.Drawing.Point(12, 64);
             this.label_maxsens.Name = "label_maxsens";
             this.label_maxsens.Size = new System.Drawing.Size(121, 13);
             this.label_maxsens.TabIndex = 10;
@@ -152,7 +154,7 @@ namespace WindowsFormsApp1
             // label_minsens
             // 
             this.label_minsens.AutoSize = true;
-            this.label_minsens.Location = new System.Drawing.Point(21, 110);
+            this.label_minsens.Location = new System.Drawing.Point(12, 90);
             this.label_minsens.Name = "label_minsens";
             this.label_minsens.Size = new System.Drawing.Size(118, 13);
             this.label_minsens.TabIndex = 11;
@@ -161,7 +163,7 @@ namespace WindowsFormsApp1
             // label_timestep
             // 
             this.label_timestep.AutoSize = true;
-            this.label_timestep.Location = new System.Drawing.Point(21, 136);
+            this.label_timestep.Location = new System.Drawing.Point(12, 116);
             this.label_timestep.Name = "label_timestep";
             this.label_timestep.Size = new System.Drawing.Size(50, 13);
             this.label_timestep.TabIndex = 12;
@@ -170,7 +172,7 @@ namespace WindowsFormsApp1
             // label_spread
             // 
             this.label_spread.AutoSize = true;
-            this.label_spread.Location = new System.Drawing.Point(21, 190);
+            this.label_spread.Location = new System.Drawing.Point(12, 170);
             this.label_spread.Name = "label_spread";
             this.label_spread.Size = new System.Drawing.Size(41, 13);
             this.label_spread.TabIndex = 13;
@@ -182,7 +184,7 @@ namespace WindowsFormsApp1
             this.cbox_Type.Items.AddRange(new object[] {
             "Aggressive Curve",
             "Log Normal Curve"});
-            this.cbox_Type.Location = new System.Drawing.Point(104, 32);
+            this.cbox_Type.Location = new System.Drawing.Point(95, 12);
             this.cbox_Type.Name = "cbox_Type";
             this.cbox_Type.Size = new System.Drawing.Size(156, 21);
             this.cbox_Type.TabIndex = 14;
@@ -191,7 +193,7 @@ namespace WindowsFormsApp1
             // label_smoothing
             // 
             this.label_smoothing.AutoSize = true;
-            this.label_smoothing.Location = new System.Drawing.Point(21, 216);
+            this.label_smoothing.Location = new System.Drawing.Point(12, 196);
             this.label_smoothing.Name = "label_smoothing";
             this.label_smoothing.Size = new System.Drawing.Size(57, 13);
             this.label_smoothing.TabIndex = 16;
@@ -199,7 +201,7 @@ namespace WindowsFormsApp1
             // 
             // box_Smoothing
             // 
-            this.box_Smoothing.Location = new System.Drawing.Point(223, 216);
+            this.box_Smoothing.Location = new System.Drawing.Point(214, 196);
             this.box_Smoothing.Name = "box_Smoothing";
             this.box_Smoothing.Size = new System.Drawing.Size(38, 20);
             this.box_Smoothing.TabIndex = 15;
@@ -208,7 +210,7 @@ namespace WindowsFormsApp1
             // 
             // btn_Regen_Curve
             // 
-            this.btn_Regen_Curve.Location = new System.Drawing.Point(185, 398);
+            this.btn_Regen_Curve.Location = new System.Drawing.Point(176, 430);
             this.btn_Regen_Curve.Name = "btn_Regen_Curve";
             this.btn_Regen_Curve.Size = new System.Drawing.Size(75, 50);
             this.btn_Regen_Curve.TabIndex = 17;
@@ -229,14 +231,14 @@ namespace WindowsFormsApp1
             legend1.Enabled = false;
             legend1.Name = "Legend1";
             this.sensCurveChart.Legends.Add(legend1);
-            this.sensCurveChart.Location = new System.Drawing.Point(286, 32);
+            this.sensCurveChart.Location = new System.Drawing.Point(271, 12);
             this.sensCurveChart.Name = "sensCurveChart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.sensCurveChart.Series.Add(series1);
-            this.sensCurveChart.Size = new System.Drawing.Size(791, 416);
+            this.sensCurveChart.Size = new System.Drawing.Size(895, 468);
             this.sensCurveChart.TabIndex = 18;
             this.sensCurveChart.Text = "Sensitivity Curve";
             title1.Name = "Title1";
@@ -246,7 +248,7 @@ namespace WindowsFormsApp1
             // label_mean
             // 
             this.label_mean.AutoSize = true;
-            this.label_mean.Location = new System.Drawing.Point(21, 244);
+            this.label_mean.Location = new System.Drawing.Point(12, 276);
             this.label_mean.Name = "label_mean";
             this.label_mean.Size = new System.Drawing.Size(119, 13);
             this.label_mean.TabIndex = 19;
@@ -255,7 +257,7 @@ namespace WindowsFormsApp1
             // label_std
             // 
             this.label_std.AutoSize = true;
-            this.label_std.Location = new System.Drawing.Point(21, 271);
+            this.label_std.Location = new System.Drawing.Point(12, 303);
             this.label_std.Name = "label_std";
             this.label_std.Size = new System.Drawing.Size(110, 13);
             this.label_std.TabIndex = 20;
@@ -264,7 +266,7 @@ namespace WindowsFormsApp1
             // label_sensmultiplier
             // 
             this.label_sensmultiplier.AutoSize = true;
-            this.label_sensmultiplier.Location = new System.Drawing.Point(21, 322);
+            this.label_sensmultiplier.Location = new System.Drawing.Point(12, 354);
             this.label_sensmultiplier.Name = "label_sensmultiplier";
             this.label_sensmultiplier.Size = new System.Drawing.Size(112, 13);
             this.label_sensmultiplier.TabIndex = 21;
@@ -272,7 +274,7 @@ namespace WindowsFormsApp1
             // 
             // box_BaseSens
             // 
-            this.box_BaseSens.Location = new System.Drawing.Point(223, 58);
+            this.box_BaseSens.Location = new System.Drawing.Point(214, 38);
             this.box_BaseSens.Name = "box_BaseSens";
             this.box_BaseSens.Size = new System.Drawing.Size(38, 20);
             this.box_BaseSens.TabIndex = 3;
@@ -281,7 +283,7 @@ namespace WindowsFormsApp1
             // 
             // btn_Load_Defaults
             // 
-            this.btn_Load_Defaults.Location = new System.Drawing.Point(142, 348);
+            this.btn_Load_Defaults.Location = new System.Drawing.Point(133, 380);
             this.btn_Load_Defaults.Name = "btn_Load_Defaults";
             this.btn_Load_Defaults.Size = new System.Drawing.Size(118, 45);
             this.btn_Load_Defaults.TabIndex = 22;
@@ -291,7 +293,7 @@ namespace WindowsFormsApp1
             // 
             // btn_Save_Defaults
             // 
-            this.btn_Save_Defaults.Location = new System.Drawing.Point(24, 347);
+            this.btn_Save_Defaults.Location = new System.Drawing.Point(15, 379);
             this.btn_Save_Defaults.Name = "btn_Save_Defaults";
             this.btn_Save_Defaults.Size = new System.Drawing.Size(112, 45);
             this.btn_Save_Defaults.TabIndex = 23;
@@ -302,7 +304,7 @@ namespace WindowsFormsApp1
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 164);
+            this.label1.Location = new System.Drawing.Point(12, 144);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 24;
@@ -310,14 +312,14 @@ namespace WindowsFormsApp1
             // 
             // box_Curve_Timestep
             // 
-            this.box_Curve_Timestep.Location = new System.Drawing.Point(223, 164);
+            this.box_Curve_Timestep.Location = new System.Drawing.Point(214, 144);
             this.box_Curve_Timestep.Name = "box_Curve_Timestep";
             this.box_Curve_Timestep.Size = new System.Drawing.Size(38, 20);
             this.box_Curve_Timestep.TabIndex = 25;
             // 
             // box_Mean
             // 
-            this.box_Mean.Location = new System.Drawing.Point(207, 244);
+            this.box_Mean.Location = new System.Drawing.Point(198, 276);
             this.box_Mean.Name = "box_Mean";
             this.box_Mean.ReadOnly = true;
             this.box_Mean.Size = new System.Drawing.Size(53, 20);
@@ -326,7 +328,7 @@ namespace WindowsFormsApp1
             // 
             // box_CurrentSens
             // 
-            this.box_CurrentSens.Location = new System.Drawing.Point(150, 322);
+            this.box_CurrentSens.Location = new System.Drawing.Point(141, 354);
             this.box_CurrentSens.Name = "box_CurrentSens";
             this.box_CurrentSens.ReadOnly = true;
             this.box_CurrentSens.Size = new System.Drawing.Size(111, 20);
@@ -335,7 +337,7 @@ namespace WindowsFormsApp1
             // 
             // box_Std
             // 
-            this.box_Std.Location = new System.Drawing.Point(207, 270);
+            this.box_Std.Location = new System.Drawing.Point(198, 302);
             this.box_Std.Name = "box_Std";
             this.box_Std.ReadOnly = true;
             this.box_Std.Size = new System.Drawing.Size(53, 20);
@@ -345,7 +347,7 @@ namespace WindowsFormsApp1
             // label_curve_completion
             // 
             this.label_curve_completion.AutoSize = true;
-            this.label_curve_completion.Location = new System.Drawing.Point(21, 296);
+            this.label_curve_completion.Location = new System.Drawing.Point(12, 328);
             this.label_curve_completion.Name = "label_curve_completion";
             this.label_curve_completion.Size = new System.Drawing.Size(92, 13);
             this.label_curve_completion.TabIndex = 29;
@@ -353,18 +355,39 @@ namespace WindowsFormsApp1
             // 
             // box_Curve_Completion
             // 
-            this.box_Curve_Completion.Location = new System.Drawing.Point(223, 296);
+            this.box_Curve_Completion.Location = new System.Drawing.Point(214, 328);
             this.box_Curve_Completion.Name = "box_Curve_Completion";
             this.box_Curve_Completion.ReadOnly = true;
             this.box_Curve_Completion.Size = new System.Drawing.Size(37, 20);
             this.box_Curve_Completion.TabIndex = 30;
             this.box_Curve_Completion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // label_Pause_Toggle
+            // 
+            this.label_Pause_Toggle.AutoSize = true;
+            this.label_Pause_Toggle.Location = new System.Drawing.Point(12, 222);
+            this.label_Pause_Toggle.Name = "label_Pause_Toggle";
+            this.label_Pause_Toggle.Size = new System.Drawing.Size(115, 13);
+            this.label_Pause_Toggle.TabIndex = 31;
+            this.label_Pause_Toggle.Text = "Quick start/stop toggle";
+            // 
+            // box_Pause_Toggle
+            // 
+            this.box_Pause_Toggle.Location = new System.Drawing.Point(214, 222);
+            this.box_Pause_Toggle.Name = "box_Pause_Toggle";
+            this.box_Pause_Toggle.ReadOnly = true;
+            this.box_Pause_Toggle.Size = new System.Drawing.Size(38, 20);
+            this.box_Pause_Toggle.TabIndex = 32;
+            this.box_Pause_Toggle.DoubleClick += new System.EventHandler(this.box_Pause_Toggle_DoubleClick);
+            this.box_Pause_Toggle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Pause_Toggle_KeyDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1108, 465);
+            this.ClientSize = new System.Drawing.Size(1178, 493);
+            this.Controls.Add(this.box_Pause_Toggle);
+            this.Controls.Add(this.label_Pause_Toggle);
             this.Controls.Add(this.box_Curve_Completion);
             this.Controls.Add(this.label_curve_completion);
             this.Controls.Add(this.box_Std);
@@ -440,6 +463,8 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox box_Std;
         private System.Windows.Forms.Label label_curve_completion;
         private System.Windows.Forms.TextBox box_Curve_Completion;
+        private System.Windows.Forms.Label label_Pause_Toggle;
+        private System.Windows.Forms.TextBox box_Pause_Toggle;
     }
 }
 

@@ -18,8 +18,12 @@ namespace WindowsFormsApp1
         internal double curveTimestep;
         internal double spread;
         internal double smoothing;
+        internal int curveLenght = 5;//default lenght is 5min
+        internal int pause_Button;
+        internal string pause_Button_Str;
         internal bool isPaused = true;
         internal bool isMinimized = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -205,10 +209,10 @@ namespace WindowsFormsApp1
             switch (cbox_Type.SelectedItem.ToString())
             {
                 case "Aggressive Curve":
-                    currentSensCurve = new AggressiveCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, 5);
+                    currentSensCurve = new AggressiveCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght);
                     break;
                 case "Log Normal Curve":
-                    currentSensCurve = new LogNormalCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, 5, spread);
+                    currentSensCurve = new LogNormalCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght, spread);
                     break;
             }
             currentSensCurve.GenerateCurve();
@@ -229,6 +233,8 @@ namespace WindowsFormsApp1
             curveTimestep = Properties.Settings.Default.curve_Timestep;
             spread = Properties.Settings.Default.spread;
             smoothing = Properties.Settings.Default.smoothing;
+            pause_Button = Properties.Settings.Default.pause_Button;
+            pause_Button_Str = Properties.Settings.Default.pause_Button_Str;
             Display_Settings();
         }
         private void Save_Default_Settings()
@@ -241,6 +247,8 @@ namespace WindowsFormsApp1
             Properties.Settings.Default.curve_Timestep = curveTimestep;
             Properties.Settings.Default.spread = spread;
             Properties.Settings.Default.smoothing = smoothing;
+            Properties.Settings.Default.pause_Button = pause_Button;
+            Properties.Settings.Default.pause_Button_Str = pause_Button_Str;
             Properties.Settings.Default.Save();
         }
         private void Display_Settings()
@@ -254,6 +262,7 @@ namespace WindowsFormsApp1
             box_Curve_Timestep.Text = curveTimestep.ToString();
             box_Spread.Text = spread.ToString();
             box_Smoothing.Text = smoothing.ToString();
+            box_Pause_Toggle.Text = pause_Button_Str;
         }
         private void Update_UI(int refreshRate)
         {
@@ -277,5 +286,43 @@ namespace WindowsFormsApp1
             });
         }
         #endregion Helper methods
+
+        private void box_Pause_Toggle_DoubleClick(object sender, EventArgs e)
+        {
+            box_Pause_Toggle.Focus();
+            box_Pause_Toggle.Clear();
+            box_Pause_Toggle.ReadOnly = false;
+            pause_Button = InterceptKey(); //use Interception to get the key press code
+        }
+        private void box_Pause_Toggle_KeyDown(object sender, KeyEventArgs e)
+        {
+            pause_Button_Str = e.KeyData.ToString();
+            box_Pause_Toggle.Text = e.KeyData.ToString();
+            box_Pause_Toggle.ReadOnly = true;
+            this.ActiveControl = null;
+        }
+
+        private int InterceptKey()
+        {
+            int keyCode;
+            IntPtr context;
+            Interception.Stroke stroke = new Interception.Stroke();
+            context = Interception.interception_create_context();
+            int device;
+            Interception.InterceptionPredicate del = Interception.interception_is_keyboard;
+            Interception.interception_set_filter(
+              context,
+              del,
+              (ushort)Interception.FilterKeyState.KeyDown);
+            Interception.interception_receive(context, device = Interception.interception_wait(context), ref stroke, 1);
+            Interception.KeyStroke kstroke = stroke;
+            keyCode = kstroke.code;
+            byte[] strokeBytes = Interception.getBytes(kstroke);
+            Interception.interception_send(context, device, strokeBytes, 1);
+            Interception.interception_destroy_context(context);
+            return keyCode;
+        }
+
+
     }
 }
