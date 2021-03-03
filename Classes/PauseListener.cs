@@ -10,7 +10,7 @@ namespace WindowsFormsApp1.Classes
     {
         public bool isPaused { get; set; } //Public pause toggle
         public bool isStopped = false; //internal Listener status
-        private readonly int pauseKey;
+        public int pauseKey { get; set; }
         public PauseListener(int pauseKey)
         {
             this.pauseKey = pauseKey;

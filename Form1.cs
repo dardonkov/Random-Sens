@@ -70,7 +70,8 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             Load_Default_Settings();
-            Update_Pause_Status(200); //Start listening for the start/stop hotkey
+            Start_Pause_Listener(200); //Start listening for the start/stop hotkey
+            Create_Curve();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -260,13 +261,9 @@ namespace WindowsFormsApp1
             box_Smoothing.Text = smoothing.ToString();
             box_Pause_Toggle.Text = pause_Button_Str;
         }
-        private void Update_Pause_Status(int refreshRate)
+        private void Start_Pause_Listener(int refreshRate)
         {
-            if (PauseListener == null)
-            {
-                PauseListener = new PauseListener(pause_Button);
-                PauseListener.isPaused = isPaused;
-            }
+            PauseListener = new PauseListener(pause_Button);
             Task.Run(() =>
             {
                 PauseListener.StartListener();
@@ -315,10 +312,6 @@ namespace WindowsFormsApp1
 
         private void StartRandomizer()
         {
-            if (currentSensCurve == null)
-            {
-                Create_Curve();
-            }
             SensRandomizer = new SensRandomizer(currentSensCurve);
             Task.Run(() =>
             {
@@ -329,12 +322,11 @@ namespace WindowsFormsApp1
 
         private void box_Pause_Toggle_DoubleClick(object sender, EventArgs e)
         {
-            PauseListener.StopListener(); //Stop and properly dispose the current start/stop hotkey listener
             box_Pause_Toggle.Focus();
             box_Pause_Toggle.Clear();
             box_Pause_Toggle.ReadOnly = false;
             pause_Button = InterceptKey(); //use Interception to get the key press code
-            Update_Pause_Status(200); //Recreate the start/stop hotkey listener
+            PauseListener.pauseKey = pause_Button;
         }
         private void box_Pause_Toggle_KeyDown(object sender, KeyEventArgs e)
         {
