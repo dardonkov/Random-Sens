@@ -9,7 +9,8 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         internal SensitivityCurve currentSensCurve;
-        internal RandomizeSens randomize;
+        internal SensRandomizer SensRandomizer;
+        internal PauseListener PauseListener;
         internal int curveType;
         internal double sensMean;
         internal double sensMax;
@@ -32,27 +33,21 @@ namespace WindowsFormsApp1
         private void btn_Start_Click(object sender, EventArgs e)
         {
             isPaused = false;
+            PauseListener.isPaused = isPaused;//synchonize the listener with local pause status var
             btn_Regen_Curve.Enabled = false;
             btn_Start.Enabled = false;
-            if (currentSensCurve == null)
-            {
-                Create_Curve();
-            }
-            randomize = new RandomizeSens(currentSensCurve);
-            Task.Run(() =>
-            {
-                randomize.Start();
-            });
+            StartRandomizer();
             Update_UI(200);
         }
         private void btn_Pause_Click(object sender, EventArgs e)
         {
             isPaused = true;
+            PauseListener.isPaused = isPaused;
             btn_Regen_Curve.Enabled = true;
             btn_Start.Enabled = true;
             Task.Run(() =>
             {
-                randomize.Pause();
+                SensRandomizer.Pause();
             });
         }
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
@@ -75,6 +70,7 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             Load_Default_Settings();
+            Update_Pause_Status(200); //Start listening for the start/stop hotkey
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -264,13 +260,44 @@ namespace WindowsFormsApp1
             box_Smoothing.Text = smoothing.ToString();
             box_Pause_Toggle.Text = pause_Button_Str;
         }
+        private void Update_Pause_Status(int refreshRate)
+        {
+            if (PauseListener == null)
+            {
+                PauseListener = new PauseListener(pause_Button);
+                PauseListener.isPaused = isPaused;
+            }
+            Task.Run(() =>
+            {
+                PauseListener.StartListener();
+            });
+            Task.Run(() =>
+            {
+                Action pause = () => btn_Pause.PerformClick();
+                Action start = () => btn_Start.PerformClick();
+                while (!PauseListener.isStopped)
+                {
+                    if (PauseListener.isPaused && !isPaused)
+                    {
+                        btn_Pause.Invoke(pause);
+                    }
+                    if (!PauseListener.isPaused && isPaused)
+                    {
+                        btn_Start.Invoke(start);
+                    }
+                    System.Threading.Thread.Sleep(refreshRate);
+                }
+                PauseListener.StopListener();
+            });
+        }
+
         private void Update_UI(int refreshRate)
         {
             Task.Run(() =>
             {
                 while (isPaused == false && isMinimized == false)
                 {
-                    Action updateCurrentSens = () => box_CurrentSens.Text = randomize.currentSens.ToString();
+                    Action updateCurrentSens = () => box_CurrentSens.Text = SensRandomizer.currentSens.ToString();
                     Action updateCompletion = () => box_Curve_Completion.Text = currentSensCurve.GetCompletion().ToString() + "%";
                     Action updateChart = () => sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
                     Action updateChartCursorX = () => sensCurveChart.ChartAreas[0].CursorX.Position = currentSensCurve.GetCurrentPoint().timeStamp;
@@ -285,14 +312,29 @@ namespace WindowsFormsApp1
                 }
             });
         }
+
+        private void StartRandomizer()
+        {
+            if (currentSensCurve == null)
+            {
+                Create_Curve();
+            }
+            SensRandomizer = new SensRandomizer(currentSensCurve);
+            Task.Run(() =>
+            {
+                SensRandomizer.Start();
+            });
+        }
         #endregion Helper methods
 
         private void box_Pause_Toggle_DoubleClick(object sender, EventArgs e)
         {
+            PauseListener.StopListener(); //Stop and properly dispose the current start/stop hotkey listener
             box_Pause_Toggle.Focus();
             box_Pause_Toggle.Clear();
             box_Pause_Toggle.ReadOnly = false;
             pause_Button = InterceptKey(); //use Interception to get the key press code
+            Update_Pause_Status(200); //Recreate the start/stop hotkey listener
         }
         private void box_Pause_Toggle_KeyDown(object sender, KeyEventArgs e)
         {
