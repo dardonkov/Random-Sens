@@ -26,5 +26,11 @@
     <Setting Name="curve_Timestep" Type="System.Double" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="pause_Button" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">64</Value>
+    </Setting>
+    <Setting Name="pause_Button_Str" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F6</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

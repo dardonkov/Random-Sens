@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace WindowsFormsApp1
+namespace RandomSens
 {
     abstract class SensitivityCurve
     {

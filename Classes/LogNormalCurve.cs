@@ -3,7 +3,7 @@ using MathNet.Numerics.Random;
 using System;
 using System.Collections.Generic;
 
-namespace WindowsFormsApp1.Classes
+namespace RandomSens.Classes
 {
     class LogNormalCurve : SensitivityCurve
     {

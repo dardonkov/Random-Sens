@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace WindowsFormsApp1.Classes
+namespace RandomSens.Classes
 {
-    class RandomizeSens
+    class SensRandomizer
     {
         public bool isPaused { get; set; }
         internal SensitivityCurve sensitivityCurve { get; private set; }
         internal double currentSens { get; private set; }
         internal double curveCompletion { get; private set; }
 
-        public RandomizeSens(SensitivityCurve sensitivityCurve)
+        public SensRandomizer(SensitivityCurve sensitivityCurve)
         {
             this.sensitivityCurve = sensitivityCurve;
         }

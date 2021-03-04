@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowsFormsApp1.Properties {
+namespace RandomSens.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -116,6 +116,30 @@ namespace WindowsFormsApp1.Properties {
             }
             set {
                 this["curve_Timestep"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("64")]
+        public int pause_Button {
+            get {
+                return ((int)(this["pause_Button"]));
+            }
+            set {
+                this["pause_Button"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F6")]
+        public string pause_Button_Str {
+            get {
+                return ((string)(this["pause_Button_Str"]));
+            }
+            set {
+                this["pause_Button_Str"] = value;
             }
         }
     }
