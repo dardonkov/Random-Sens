@@ -3,17 +3,15 @@ Disclaimer: This is a very much work-in-progress(WIP) tool, bugs are to be expec
 ## Overview
 
 This program is used to dynamically alter your effective mouse sensitivity according to a configurable pre-generated curve. It is mainly intended to be used while aim training,
-in order to improve mouse control in general. It comes with a fully functional GUI that allows you to previews the sensitivity curves and follow the progress in real-time.
+in order to improve mouse control in general. It comes with a fully functional GUI that allows you to preview the sensitivity curves and follow the progress in real-time.
 It aims to be a successor to the Sensitivity Randomizer by Whisper & El Bad - https://github.com/Whisperrr/SensitivityRandomizer
 
 ## Installation
 
-1. Download the latest release from the Github page - LINK
-*always check newer releases*
+1. Download the latest release from the Github page - https://github.com/dardonkov/Random-Sens/releases
 
 2. Before you start, you need to install the Interception driver which is used to capture/modify mouse input. If you have used Interaccel or the Sensitivity 
-Randomizer by Whisper & El Bad, you already have the driver installed, so you can skip this step. If not, then you need to run the install-interception.exe 
-as Administrator and restart Windows. You can also install the Interception driver from the Github page: https://github.com/oblitum/Interception
+Randomizer by Whisper & El Bad, you already have the driver installed, so you can skip this step. If not, then you need to run driver_install.bat from the "driver-install" folder and restart your PC. Windows needs to reboot before the driver is usable. You can also install the driver following the instructions on the Interception Github page: https://github.com/oblitum/Interception
 
 3. Start the Random-Sens.exe
 
