@@ -1,5 +1,5 @@
 ﻿
-namespace WindowsFormsApp1
+namespace RandomSens
 {
     partial class Form1
     {

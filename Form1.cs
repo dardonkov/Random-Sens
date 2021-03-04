@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp1.Classes;
+using RandomSens.Classes;
 
-namespace WindowsFormsApp1
+namespace RandomSens
 {
     public partial class Form1 : Form
     {

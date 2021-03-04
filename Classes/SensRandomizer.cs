@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace WindowsFormsApp1.Classes
+namespace RandomSens.Classes
 {
     class SensRandomizer
     {
