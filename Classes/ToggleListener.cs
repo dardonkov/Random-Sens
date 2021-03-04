@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Classes
 {
-    class PauseListener
+    class ToggleListener
     {
-        public bool isPaused { get; set; } //Public pause toggle
         public bool isStopped = false; //internal Listener status
-        public int pauseKey { get; set; }
-        public PauseListener(int pauseKey)
+        public int toggleKey { get; set; }
+        public event EventHandler ToggleKeyPressed; //delegate
+        public ToggleListener(int pauseKey)
         {
-            this.pauseKey = pauseKey;
+            this.toggleKey = pauseKey;
         }
         public void StartListener()
         {
@@ -33,27 +33,21 @@ namespace WindowsFormsApp1.Classes
                 Interception.KeyStroke kstroke = stroke;
                 byte[] strokeBytes = Interception.getBytes(kstroke);
                 Interception.interception_send(context, device, strokeBytes, 1);
-                if (kstroke.code == pauseKey)
+                if (kstroke.code == toggleKey)
                 {
-                    TogglePause();
+                    OnToggleKeyPressed();
                 }
             }
             Interception.interception_destroy_context(context);
         }
+
+        private void OnToggleKeyPressed()
+        {
+            ToggleKeyPressed.Invoke(this,EventArgs.Empty); //invoke the event with empty eventargs
+        }
         public void StopListener()
         {
             isStopped = true;
-        }
-        private void TogglePause()
-        {
-            if (isPaused)
-            {
-                isPaused = false;
-            }
-            else
-            {
-                isPaused = true;
-            }
         }
     }
 }

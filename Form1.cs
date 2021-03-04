@@ -10,7 +10,7 @@ namespace WindowsFormsApp1
     {
         internal SensitivityCurve currentSensCurve;
         internal SensRandomizer SensRandomizer;
-        internal PauseListener PauseListener;
+        internal ToggleListener PauseListener;
         internal int curveType;
         internal double sensMean;
         internal double sensMax;
@@ -32,23 +32,11 @@ namespace WindowsFormsApp1
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            isPaused = false;
-            PauseListener.isPaused = isPaused;//synchonize the listener with local pause status var
-            btn_Regen_Curve.Enabled = false;
-            btn_Start.Enabled = false;
-            StartRandomizer();
-            Update_UI(200);
+            ToggleRandomizer();
         }
         private void btn_Pause_Click(object sender, EventArgs e)
         {
-            isPaused = true;
-            PauseListener.isPaused = isPaused;
-            btn_Regen_Curve.Enabled = true;
-            btn_Start.Enabled = true;
-            Task.Run(() =>
-            {
-                SensRandomizer.Pause();
-            });
+            ToggleRandomizer();
         }
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
         {
@@ -67,15 +55,35 @@ namespace WindowsFormsApp1
         {
             Load_Default_Settings();
         }
+        private void PauseListener_ToggleKeyPressed(object sender, EventArgs e) //hadles the evenet by toggling the randomizer
+        {
+            Action toggleRandomizer = () => ToggleRandomizer();
+            this.Invoke(toggleRandomizer);
+        }
+        private void box_Pause_Toggle_DoubleClick(object sender, EventArgs e)
+        {
+            box_Pause_Toggle.Focus();
+            box_Pause_Toggle.Clear();
+            box_Pause_Toggle.ReadOnly = false;
+            pause_Button = InterceptKey(); //use Interception to get the key press code
+            PauseListener.toggleKey = pause_Button;
+        }
+        private void box_Pause_Toggle_KeyDown(object sender, KeyEventArgs e)
+        {
+            pause_Button_Str = e.KeyData.ToString();
+            box_Pause_Toggle.Text = e.KeyData.ToString();
+            box_Pause_Toggle.ReadOnly = true;
+            this.ActiveControl = null;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             Load_Default_Settings();
-            Start_Pause_Listener(200); //Start listening for the start/stop hotkey
+            Start_Pause_Listener(); //Start listening for the start/stop hotkey
             Create_Curve();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            
         }
         private void Form1_Resize(object sender, EventArgs e)
         {
@@ -199,7 +207,7 @@ namespace WindowsFormsApp1
             Display_Settings();
         }
         #endregion Validators
-        #region Helper methods
+
         private void Create_Curve()
         {
             //SensitivityCurve sensCurve = new AggressiveCurve(1,2,0.5,10,5);//default sensCurve init
@@ -261,32 +269,15 @@ namespace WindowsFormsApp1
             box_Smoothing.Text = smoothing.ToString();
             box_Pause_Toggle.Text = pause_Button_Str;
         }
-        private void Start_Pause_Listener(int refreshRate)
+        private void Start_Pause_Listener()
         {
-            PauseListener = new PauseListener(pause_Button);
+            PauseListener = new ToggleListener(pause_Button);
+            PauseListener.ToggleKeyPressed += PauseListener_ToggleKeyPressed; //subscribe the event to PauseListener_ToggleKeyPressed
             Task.Run(() =>
             {
                 PauseListener.StartListener();
             });
-            Task.Run(() =>
-            {
-                Action pause = () => btn_Pause.PerformClick();
-                Action start = () => btn_Start.PerformClick();
-                while (true)
-                {
-                    if (PauseListener.isPaused && !isPaused)
-                    {
-                        btn_Pause.Invoke(pause);
-                    }
-                    if (!PauseListener.isPaused && isPaused)
-                    {
-                        btn_Start.Invoke(start);
-                    }
-                    System.Threading.Thread.Sleep(refreshRate);
-                }
-            });
         }
-
         private void Update_UI(int refreshRate)
         {
             Task.Run(() =>
@@ -311,30 +302,40 @@ namespace WindowsFormsApp1
 
         private void StartRandomizer()
         {
+            isPaused = false;
+            btn_Regen_Curve.Enabled = false;
+            btn_Start.Enabled = false;
+            btn_Pause.Enabled = true;
+            Update_UI(200);
             SensRandomizer = new SensRandomizer(currentSensCurve);
             Task.Run(() =>
             {
                 SensRandomizer.Start();
             });
         }
-        #endregion Helper methods
-
-        private void box_Pause_Toggle_DoubleClick(object sender, EventArgs e)
+        private void StopRandomizer()
         {
-            box_Pause_Toggle.Focus();
-            box_Pause_Toggle.Clear();
-            box_Pause_Toggle.ReadOnly = false;
-            pause_Button = InterceptKey(); //use Interception to get the key press code
-            PauseListener.pauseKey = pause_Button;
+            isPaused = true;
+            btn_Regen_Curve.Enabled = true;
+            btn_Start.Enabled = true;
+            btn_Pause.Enabled = false;
+            Task.Run(() =>
+            {
+                SensRandomizer.Pause();
+            });
         }
-        private void box_Pause_Toggle_KeyDown(object sender, KeyEventArgs e)
+        private void ToggleRandomizer()
         {
-            pause_Button_Str = e.KeyData.ToString();
-            box_Pause_Toggle.Text = e.KeyData.ToString();
-            box_Pause_Toggle.ReadOnly = true;
+            if (isPaused)
+            {
+                StartRandomizer();
+            }
+            else
+            {
+                StopRandomizer();
+            }
             this.ActiveControl = null;
         }
-
         private int InterceptKey()
         {
             int keyCode;
@@ -355,7 +356,5 @@ namespace WindowsFormsApp1
             Interception.interception_destroy_context(context);
             return keyCode;
         }
-
-
     }
 }

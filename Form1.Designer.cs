@@ -80,6 +80,7 @@ namespace WindowsFormsApp1
             // 
             // btn_Pause
             // 
+            this.btn_Pause.Enabled = false;
             this.btn_Pause.Location = new System.Drawing.Point(95, 430);
             this.btn_Pause.Name = "btn_Pause";
             this.btn_Pause.Size = new System.Drawing.Size(75, 50);

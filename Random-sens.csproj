@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="Classes\AggressiveCurve.cs" />
     <Compile Include="Classes\LogNormalCurve.cs" />
-    <Compile Include="Classes\PauseListener.cs" />
+    <Compile Include="Classes\ToggleListener.cs" />
     <Compile Include="Classes\SensRandomizer.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
