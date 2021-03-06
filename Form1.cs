@@ -80,6 +80,7 @@ namespace RandomSens
             Load_Default_Settings();
             Start_Pause_Listener(); //Start listening for the start/stop hotkey
             Create_Curve();
+            SensRandomizer = new SensRandomizer(currentSensCurve);
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -307,6 +308,7 @@ namespace RandomSens
             btn_Start.Enabled = false;
             btn_Pause.Enabled = true;
             Update_UI(200);
+            SensRandomizer.Stop();
             SensRandomizer = new SensRandomizer(currentSensCurve);
             Task.Run(() =>
             {
@@ -319,10 +321,8 @@ namespace RandomSens
             btn_Regen_Curve.Enabled = true;
             btn_Start.Enabled = true;
             btn_Pause.Enabled = false;
-            Task.Run(() =>
-            {
+            
                 SensRandomizer.Pause();
-            });
         }
         private void ToggleRandomizer()
         {
