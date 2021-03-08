@@ -1,7 +1,7 @@
 ﻿
 namespace RandomSens
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -423,9 +423,9 @@ namespace RandomSens
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Random-Sens";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Resize += new System.EventHandler(this.Form1_Resize);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.sensCurveChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

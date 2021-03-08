@@ -5,8 +5,7 @@ namespace RandomSens.Classes
 {
     class SensRandomizer
     {
-        public bool isPaused { get; set; }
-        public bool isStopped { get; set; }
+        public bool isPaused { get; set; } = false;
         internal SensitivityCurve sensitivityCurve { get; private set; }
         internal double currentSens { get; private set; }
         internal double curveCompletion { get; private set; }
@@ -39,7 +38,7 @@ namespace RandomSens.Classes
             {
                 //sw += 20; // Every cycle takes roughly 20ms so we add 20ms
                 stopwatch.Start();
-                if (sensitivityCurve.isFinished || isStopped)
+                if (sensitivityCurve.isFinished)
                 {
                     break;
                 }
@@ -82,9 +81,9 @@ namespace RandomSens.Classes
         {
             isPaused = true;
         }
-        internal void Stop()
+        internal void Resume()
         {
-            isStopped=true;
+            isPaused = false;
         }
     }
 }

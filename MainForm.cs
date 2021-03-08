@@ -1,12 +1,12 @@
-﻿using System;
+﻿using RandomSens.Classes;
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RandomSens.Classes;
 
 namespace RandomSens
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         internal SensitivityCurve currentSensCurve;
         internal SensRandomizer SensRandomizer;
@@ -25,7 +25,7 @@ namespace RandomSens
         internal bool isPaused = true;
         internal bool isMinimized = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -75,18 +75,18 @@ namespace RandomSens
             box_Pause_Toggle.ReadOnly = true;
             this.ActiveControl = null;
         }
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             Load_Default_Settings();
             Start_Pause_Listener(); //Start listening for the start/stop hotkey
             Create_Curve();
             SensRandomizer = new SensRandomizer(currentSensCurve);
         }
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
         }
-        private void Form1_Resize(object sender, EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
@@ -307,22 +307,26 @@ namespace RandomSens
             btn_Regen_Curve.Enabled = false;
             btn_Start.Enabled = false;
             btn_Pause.Enabled = true;
-            Update_UI(200);
-            SensRandomizer.Stop();
-            SensRandomizer = new SensRandomizer(currentSensCurve);
-            Task.Run(() =>
+            Update_UI(200);//Start updating the UI and the graph every 200ms
+            if (SensRandomizer.isPaused) //If the randomizer is paused - then resume
             {
-                SensRandomizer.Start();
-            });
+                SensRandomizer.Resume();
+            }
+            else //If its not paused then start it up
+            {
+                Task.Run(() =>
+                {
+                    SensRandomizer.Start();
+                });
+            }
         }
-        private void StopRandomizer()
+        private void PauseRandomizer()
         {
             isPaused = true;
             btn_Regen_Curve.Enabled = true;
             btn_Start.Enabled = true;
             btn_Pause.Enabled = false;
-            
-                SensRandomizer.Pause();
+            SensRandomizer.Pause();
         }
         private void ToggleRandomizer()
         {
@@ -332,7 +336,7 @@ namespace RandomSens
             }
             else
             {
-                StopRandomizer();
+                PauseRandomizer();
             }
             this.ActiveControl = null;
         }
