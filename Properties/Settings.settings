@@ -32,5 +32,11 @@
     <Setting Name="pause_Button_Str" Type="System.String" Scope="User">
       <Value Profile="(Default)">F6</Value>
     </Setting>
+    <Setting Name="stop_Button" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">65</Value>
+    </Setting>
+    <Setting Name="stop_Button_Str" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F7</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -10,7 +10,7 @@ namespace RandomSens
     {
         internal SensitivityCurve currentSensCurve;
         internal SensRandomizer SensRandomizer;
-        internal ToggleListener PauseListener;
+        internal HotkeyListener PauseListener;
         internal int curveType;
         internal double sensMean;
         internal double sensMax;
@@ -22,7 +22,10 @@ namespace RandomSens
         internal int curveLenght = 5;//default lenght is 5min
         internal int pause_Button;
         internal string pause_Button_Str;
+        internal int stop_Button;
+        internal string stop_Button_Str;
         internal bool isPaused = true;
+        internal bool isStopped = true;
         internal bool isMinimized = false;
 
         public MainForm()
@@ -32,11 +35,15 @@ namespace RandomSens
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            ToggleRandomizer();
+            StartRandomizer();
         }
         private void btn_Pause_Click(object sender, EventArgs e)
         {
-            ToggleRandomizer();
+            PauseRandomizer();
+        }
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            StopRandomizer();
         }
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
         {
@@ -55,9 +62,14 @@ namespace RandomSens
         {
             Load_Default_Settings();
         }
-        private void PauseListener_ToggleKeyPressed(object sender, EventArgs e) //hadles the evenet by toggling the randomizer
+        private void HotkeyListener_PauseKeyPressed(object sender, EventArgs e) //hadles the evenet by toggling the randomizer
         {
-            Action toggleRandomizer = () => ToggleRandomizer();
+            Action toggleRandomizer = () => TogglePauseRandomizer(); //Invoke the toggle method from the main thread because it is
+            this.Invoke(toggleRandomizer);                           //coming from a different thread that is only listening for keypresses
+        }
+        private void HotkeyListener_StopKeyPressed(object sender, EventArgs e) //hadles the evenet by toggling the randomizer
+        {
+            Action toggleRandomizer = () => ToggleStopRandomizer();
             this.Invoke(toggleRandomizer);
         }
         private void box_Pause_Toggle_DoubleClick(object sender, EventArgs e)
@@ -66,13 +78,28 @@ namespace RandomSens
             box_Pause_Toggle.Clear();
             box_Pause_Toggle.ReadOnly = false;
             pause_Button = InterceptKey(); //use Interception to get the key press code
-            PauseListener.toggleKey = pause_Button;
+            PauseListener.pauseKey = pause_Button;
+        }
+        private void box_Stop_Toggle_DoubleClick(object sender, EventArgs e)
+        {
+            box_Stop_Toggle.Focus();
+            box_Stop_Toggle.Clear();
+            box_Stop_Toggle.ReadOnly = false;
+            stop_Button = InterceptKey(); //use Interception to get the key press code
+            PauseListener.stopKey = stop_Button;
         }
         private void box_Pause_Toggle_KeyDown(object sender, KeyEventArgs e)
         {
             pause_Button_Str = e.KeyData.ToString();
             box_Pause_Toggle.Text = e.KeyData.ToString();
             box_Pause_Toggle.ReadOnly = true;
+            this.ActiveControl = null;
+        }
+        private void box_Stop_Toggle_KeyDown(object sender, KeyEventArgs e)
+        {
+            stop_Button_Str = e.KeyData.ToString();
+            box_Stop_Toggle.Text = e.KeyData.ToString();
+            box_Stop_Toggle.ReadOnly = true;
             this.ActiveControl = null;
         }
         private void MainForm_Load(object sender, EventArgs e)
@@ -241,6 +268,8 @@ namespace RandomSens
             smoothing = Properties.Settings.Default.smoothing;
             pause_Button = Properties.Settings.Default.pause_Button;
             pause_Button_Str = Properties.Settings.Default.pause_Button_Str;
+            stop_Button = Properties.Settings.Default.stop_Button;
+            stop_Button_Str = Properties.Settings.Default.stop_Button_Str;
             Display_Settings();
         }
         private void Save_Default_Settings()
@@ -255,6 +284,8 @@ namespace RandomSens
             Properties.Settings.Default.smoothing = smoothing;
             Properties.Settings.Default.pause_Button = pause_Button;
             Properties.Settings.Default.pause_Button_Str = pause_Button_Str;
+            Properties.Settings.Default.stop_Button = stop_Button;
+            Properties.Settings.Default.stop_Button_Str = stop_Button_Str;
             Properties.Settings.Default.Save();
         }
         private void Display_Settings()
@@ -269,11 +300,13 @@ namespace RandomSens
             box_Spread.Text = spread.ToString();
             box_Smoothing.Text = smoothing.ToString();
             box_Pause_Toggle.Text = pause_Button_Str;
+            box_Stop_Toggle.Text = stop_Button_Str;
         }
         private void Start_Pause_Listener()
         {
-            PauseListener = new ToggleListener(pause_Button);
-            PauseListener.ToggleKeyPressed += PauseListener_ToggleKeyPressed; //subscribe the event to PauseListener_ToggleKeyPressed
+            PauseListener = new HotkeyListener(pause_Button, stop_Button);
+            PauseListener.PauseKeyPressed += HotkeyListener_PauseKeyPressed; //subscribe the event to PauseListener_ToggleKeyPressed
+            PauseListener.StopKeyPressed += HotkeyListener_StopKeyPressed;
             Task.Run(() =>
             {
                 PauseListener.StartListener();
@@ -283,7 +316,7 @@ namespace RandomSens
         {
             Task.Run(() =>
             {
-                while (isPaused == false && isMinimized == false)
+                while (isPaused == false && isStopped==false && isMinimized == false)
                 {
                     Action updateCurrentSens = () => box_CurrentSens.Text = SensRandomizer.currentSens.ToString();
                     Action updateCompletion = () => box_Curve_Completion.Text = currentSensCurve.GetCompletion().ToString() + "%";
@@ -304,15 +337,17 @@ namespace RandomSens
         private void StartRandomizer()
         {
             isPaused = false;
+            isStopped = false;
             btn_Regen_Curve.Enabled = false;
             btn_Start.Enabled = false;
             btn_Pause.Enabled = true;
+            btn_Stop.Enabled = true;
             Update_UI(200);//Start updating the UI and the graph every 200ms
             if (SensRandomizer.isPaused) //If the randomizer is paused - then resume
             {
                 SensRandomizer.Resume();
             }
-            else //If its not paused then start it up
+            else if(SensRandomizer.isStopped)//If its stopped then start it up
             {
                 Task.Run(() =>
                 {
@@ -328,15 +363,38 @@ namespace RandomSens
             btn_Pause.Enabled = false;
             SensRandomizer.Pause();
         }
-        private void ToggleRandomizer()
+        private void StopRandomizer()
         {
-            if (isPaused)
+            isStopped = true;
+            isPaused = false;
+            btn_Regen_Curve.Enabled = true;
+            btn_Start.Enabled = true;
+            btn_Pause.Enabled = false;
+            btn_Stop.Enabled = false;
+            box_CurrentSens.Text = sensMean.ToString(); //Display the current sens as the base sens
+            SensRandomizer.Stop();
+        }
+        private void TogglePauseRandomizer()
+        {
+            if (isPaused || isStopped)
             {
                 StartRandomizer();
             }
             else
             {
                 PauseRandomizer();
+            }
+            this.ActiveControl = null;
+        }
+        private void ToggleStopRandomizer()
+        {
+            if (isStopped)
+            {
+                StartRandomizer();
+            }
+            else
+            {
+                StopRandomizer();
             }
             this.ActiveControl = null;
         }
@@ -360,5 +418,7 @@ namespace RandomSens
             Interception.interception_destroy_context(context);
             return keyCode;
         }
+
+
     }
 }

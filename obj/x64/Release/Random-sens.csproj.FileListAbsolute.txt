@@ -9,7 +9,7 @@ C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\Random-sens.csprojAss
 C:\Users\Dar\source\repos\WindowsFormsApp1\bin\x64\Release\RandomSens.exe.config
 C:\Users\Dar\source\repos\WindowsFormsApp1\bin\x64\Release\RandomSens.exe
 C:\Users\Dar\source\repos\WindowsFormsApp1\bin\x64\Release\RandomSens.pdb
-C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\RandomSens.Form1.resources
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\RandomSens.Properties.Resources.resources
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\RandomSens.exe
 C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\RandomSens.pdb
+C:\Users\Dar\source\repos\WindowsFormsApp1\obj\x64\Release\RandomSens.MainForm.resources

@@ -6,6 +6,7 @@ namespace RandomSens.Classes
     class SensRandomizer
     {
         public bool isPaused { get; set; } = false;
+        public bool isStopped { get; set; } = true;
         internal SensitivityCurve sensitivityCurve { get; private set; }
         internal double currentSens { get; private set; }
         internal double curveCompletion { get; private set; }
@@ -17,6 +18,7 @@ namespace RandomSens.Classes
         }
         public void Start()
         {
+            isStopped = false;
             using (Process p = Process.GetCurrentProcess())// Raise process priotity
                 p.PriorityClass = ProcessPriorityClass.High;
 
@@ -38,7 +40,7 @@ namespace RandomSens.Classes
             {
                 //sw += 20; // Every cycle takes roughly 20ms so we add 20ms
                 stopwatch.Start();
-                if (sensitivityCurve.isFinished)
+                if (sensitivityCurve.isFinished || isStopped)
                 {
                     break;
                 }
@@ -70,7 +72,7 @@ namespace RandomSens.Classes
                 }
             }
             Interception.interception_destroy_context(context);
-            if (isPaused == false)
+            if (isStopped == false)
             {
                 sensitivityCurve.RegenerateCurve();
                 sensitivityCurve.InterpolateCurveAkima();
@@ -83,6 +85,11 @@ namespace RandomSens.Classes
         }
         internal void Resume()
         {
+            isPaused = false;
+        }
+        internal void Stop()
+        {
+            isStopped = true;
             isPaused = false;
         }
     }

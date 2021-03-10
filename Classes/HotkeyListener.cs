@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace RandomSens.Classes
 {
-    class ToggleListener
+    class HotkeyListener
     {
         public bool isStopped = false; //internal Listener status
-        public int toggleKey { get; set; }
-        public event EventHandler ToggleKeyPressed; //delegate
-        public ToggleListener(int pauseKey)
+        public int pauseKey { get; set; }
+        public int stopKey { get; set; }
+        public event EventHandler PauseKeyPressed; //delegate
+        public event EventHandler StopKeyPressed;
+        public HotkeyListener(int pauseKey, int stopKey)
         {
-            this.toggleKey = pauseKey;
+            this.pauseKey = pauseKey;
+            this.stopKey = stopKey;
         }
         public void StartListener()
         {
@@ -33,17 +36,26 @@ namespace RandomSens.Classes
                 Interception.KeyStroke kstroke = stroke;
                 byte[] strokeBytes = Interception.getBytes(kstroke);
                 Interception.interception_send(context, device, strokeBytes, 1);
-                if (kstroke.code == toggleKey)
+                if (kstroke.code == pauseKey)
                 {
-                    OnToggleKeyPressed();
+                    OnPauseKeyPressed(); //If the registered key matches the pause key invoke the pausekey event
                 }
+                if (kstroke.code == stopKey)
+                {
+                    OnStopKeyPressed();
+                }
+
             }
             Interception.interception_destroy_context(context);
         }
 
-        private void OnToggleKeyPressed()
+        private void OnPauseKeyPressed()
         {
-            ToggleKeyPressed.Invoke(this,EventArgs.Empty); //invoke the event with empty eventargs
+            PauseKeyPressed.Invoke(this,EventArgs.Empty); //invoke the event with empty eventargs
+        }
+        private void OnStopKeyPressed()
+        {
+            StopKeyPressed.Invoke(this, EventArgs.Empty); //invoke the event with empty eventargs
         }
         public void StopListener()
         {

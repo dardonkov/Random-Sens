@@ -142,5 +142,29 @@ namespace RandomSens.Properties {
                 this["pause_Button_Str"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("65")]
+        public int stop_Button {
+            get {
+                return ((int)(this["stop_Button"]));
+            }
+            set {
+                this["stop_Button"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F7")]
+        public string stop_Button_Str {
+            get {
+                return ((string)(this["stop_Button_Str"]));
+            }
+            set {
+                this["stop_Button_Str"] = value;
+            }
+        }
     }
 }

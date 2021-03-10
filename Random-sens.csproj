@@ -92,7 +92,7 @@
   <ItemGroup>
     <Compile Include="Classes\AggressiveCurve.cs" />
     <Compile Include="Classes\LogNormalCurve.cs" />
-    <Compile Include="Classes\ToggleListener.cs" />
+    <Compile Include="Classes\HotkeyListener.cs" />
     <Compile Include="Classes\SensRandomizer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

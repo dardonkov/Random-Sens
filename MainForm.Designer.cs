@@ -29,10 +29,10 @@ namespace RandomSens
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Pause = new System.Windows.Forms.Button();
             this.box_Max_Sens = new System.Windows.Forms.TextBox();
@@ -65,12 +65,15 @@ namespace RandomSens
             this.box_Curve_Completion = new System.Windows.Forms.TextBox();
             this.label_Pause_Toggle = new System.Windows.Forms.Label();
             this.box_Pause_Toggle = new System.Windows.Forms.TextBox();
+            this.box_Stop_Toggle = new System.Windows.Forms.TextBox();
+            this.label_Stop_Toggle = new System.Windows.Forms.Label();
+            this.btn_Stop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sensCurveChart)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Start
             // 
-            this.btn_Start.Location = new System.Drawing.Point(15, 430);
+            this.btn_Start.Location = new System.Drawing.Point(15, 440);
             this.btn_Start.Name = "btn_Start";
             this.btn_Start.Size = new System.Drawing.Size(75, 50);
             this.btn_Start.TabIndex = 0;
@@ -81,7 +84,7 @@ namespace RandomSens
             // btn_Pause
             // 
             this.btn_Pause.Enabled = false;
-            this.btn_Pause.Location = new System.Drawing.Point(95, 430);
+            this.btn_Pause.Location = new System.Drawing.Point(95, 440);
             this.btn_Pause.Name = "btn_Pause";
             this.btn_Pause.Size = new System.Drawing.Size(75, 50);
             this.btn_Pause.TabIndex = 1;
@@ -211,9 +214,9 @@ namespace RandomSens
             // 
             // btn_Regen_Curve
             // 
-            this.btn_Regen_Curve.Location = new System.Drawing.Point(176, 430);
+            this.btn_Regen_Curve.Location = new System.Drawing.Point(177, 379);
             this.btn_Regen_Curve.Name = "btn_Regen_Curve";
-            this.btn_Regen_Curve.Size = new System.Drawing.Size(75, 50);
+            this.btn_Regen_Curve.Size = new System.Drawing.Size(75, 55);
             this.btn_Regen_Curve.TabIndex = 17;
             this.btn_Regen_Curve.Text = "Regenerate Curve";
             this.btn_Regen_Curve.UseVisualStyleBackColor = true;
@@ -221,30 +224,30 @@ namespace RandomSens
             // 
             // sensCurveChart
             // 
-            chartArea1.AxisX.IsMarginVisible = false;
-            chartArea1.AxisX.Title = "Time";
-            chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea1.AxisY.IsMarginVisible = false;
-            chartArea1.AxisY.Title = "Sensitivity multiplier";
-            chartArea1.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea1.Name = "ChartArea1";
-            this.sensCurveChart.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.sensCurveChart.Legends.Add(legend1);
+            chartArea3.AxisX.IsMarginVisible = false;
+            chartArea3.AxisX.Title = "Time";
+            chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.AxisY.IsMarginVisible = false;
+            chartArea3.AxisY.Title = "Sensitivity multiplier";
+            chartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.Name = "ChartArea1";
+            this.sensCurveChart.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.sensCurveChart.Legends.Add(legend3);
             this.sensCurveChart.Location = new System.Drawing.Point(271, 12);
             this.sensCurveChart.Name = "sensCurveChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.sensCurveChart.Series.Add(series1);
-            this.sensCurveChart.Size = new System.Drawing.Size(895, 468);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.sensCurveChart.Series.Add(series3);
+            this.sensCurveChart.Size = new System.Drawing.Size(895, 478);
             this.sensCurveChart.TabIndex = 18;
             this.sensCurveChart.Text = "Sensitivity Curve";
-            title1.Name = "Title1";
-            title1.Text = "Sensitivity Curve";
-            this.sensCurveChart.Titles.Add(title1);
+            title3.Name = "Title1";
+            title3.Text = "Sensitivity Curve";
+            this.sensCurveChart.Titles.Add(title3);
             // 
             // label_mean
             // 
@@ -284,9 +287,9 @@ namespace RandomSens
             // 
             // btn_Load_Defaults
             // 
-            this.btn_Load_Defaults.Location = new System.Drawing.Point(133, 380);
+            this.btn_Load_Defaults.Location = new System.Drawing.Point(96, 379);
             this.btn_Load_Defaults.Name = "btn_Load_Defaults";
-            this.btn_Load_Defaults.Size = new System.Drawing.Size(118, 45);
+            this.btn_Load_Defaults.Size = new System.Drawing.Size(74, 55);
             this.btn_Load_Defaults.TabIndex = 22;
             this.btn_Load_Defaults.Text = "Restore default settings";
             this.btn_Load_Defaults.UseVisualStyleBackColor = true;
@@ -296,7 +299,7 @@ namespace RandomSens
             // 
             this.btn_Save_Defaults.Location = new System.Drawing.Point(15, 379);
             this.btn_Save_Defaults.Name = "btn_Save_Defaults";
-            this.btn_Save_Defaults.Size = new System.Drawing.Size(112, 45);
+            this.btn_Save_Defaults.Size = new System.Drawing.Size(75, 55);
             this.btn_Save_Defaults.TabIndex = 23;
             this.btn_Save_Defaults.Text = "Save default settings";
             this.btn_Save_Defaults.UseVisualStyleBackColor = true;
@@ -368,9 +371,9 @@ namespace RandomSens
             this.label_Pause_Toggle.AutoSize = true;
             this.label_Pause_Toggle.Location = new System.Drawing.Point(12, 222);
             this.label_Pause_Toggle.Name = "label_Pause_Toggle";
-            this.label_Pause_Toggle.Size = new System.Drawing.Size(115, 13);
+            this.label_Pause_Toggle.Size = new System.Drawing.Size(124, 13);
             this.label_Pause_Toggle.TabIndex = 31;
-            this.label_Pause_Toggle.Text = "Quick start/stop toggle";
+            this.label_Pause_Toggle.Text = "Quick start/pause toggle";
             // 
             // box_Pause_Toggle
             // 
@@ -382,11 +385,44 @@ namespace RandomSens
             this.box_Pause_Toggle.DoubleClick += new System.EventHandler(this.box_Pause_Toggle_DoubleClick);
             this.box_Pause_Toggle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Pause_Toggle_KeyDown);
             // 
-            // Form1
+            // box_Stop_Toggle
+            // 
+            this.box_Stop_Toggle.Location = new System.Drawing.Point(214, 249);
+            this.box_Stop_Toggle.Name = "box_Stop_Toggle";
+            this.box_Stop_Toggle.ReadOnly = true;
+            this.box_Stop_Toggle.Size = new System.Drawing.Size(38, 20);
+            this.box_Stop_Toggle.TabIndex = 34;
+            this.box_Stop_Toggle.DoubleClick += new System.EventHandler(this.box_Stop_Toggle_DoubleClick);
+            this.box_Stop_Toggle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Stop_Toggle_KeyDown);
+            // 
+            // label_Stop_Toggle
+            // 
+            this.label_Stop_Toggle.AutoSize = true;
+            this.label_Stop_Toggle.Location = new System.Drawing.Point(12, 249);
+            this.label_Stop_Toggle.Name = "label_Stop_Toggle";
+            this.label_Stop_Toggle.Size = new System.Drawing.Size(115, 13);
+            this.label_Stop_Toggle.TabIndex = 33;
+            this.label_Stop_Toggle.Text = "Quick start/stop toggle";
+            // 
+            // btn_Stop
+            // 
+            this.btn_Stop.Enabled = false;
+            this.btn_Stop.Location = new System.Drawing.Point(177, 440);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(75, 50);
+            this.btn_Stop.TabIndex = 35;
+            this.btn_Stop.Text = "Stop";
+            this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1178, 493);
+            this.ClientSize = new System.Drawing.Size(1178, 501);
+            this.Controls.Add(this.btn_Stop);
+            this.Controls.Add(this.box_Stop_Toggle);
+            this.Controls.Add(this.label_Stop_Toggle);
             this.Controls.Add(this.box_Pause_Toggle);
             this.Controls.Add(this.label_Pause_Toggle);
             this.Controls.Add(this.box_Curve_Completion);
@@ -421,7 +457,7 @@ namespace RandomSens
             this.Controls.Add(this.btn_Start);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Random-Sens";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -466,6 +502,9 @@ namespace RandomSens
         private System.Windows.Forms.TextBox box_Curve_Completion;
         private System.Windows.Forms.Label label_Pause_Toggle;
         private System.Windows.Forms.TextBox box_Pause_Toggle;
+        private System.Windows.Forms.TextBox box_Stop_Toggle;
+        private System.Windows.Forms.Label label_Stop_Toggle;
+        private System.Windows.Forms.Button btn_Stop;
     }
 }
 
