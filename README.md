@@ -26,7 +26,9 @@ LogNormal distribution - this is very similar to the Sensitivity Randomizer by W
  - "Spread" only affects the generation of the "LogNormal curve"
  - "Smoothing" is currently unused
 *NB - not all parameters affect all curves, changes are coming.*
- - "Quick start/stop toggle" is a programmable hotkey to Pause/Start the randomizer. It can be used at any time, even when the program is minimized. Note: It pauses at the current sensivity multiplier and stops changing it, it does not restore your base sens. You can reassign this to any button by double clicking on the box, then pressing the key you wish to assign. Default is F6
+ - "Quick start/pause toggle" is a programmable hotkey to Pause/Start the randomizer. It can be used at any time, even when the program is minimized. Note: It pauses at the current sensivity multiplier and stops changing it, it does not restore your base sens. You can reassign this to any button by double clicking on the box, then pressing the key you wish to assign. Default is F6.
+ - "Quick start/stop toggle" is a programmable hotkey to start or stop the randomizer. It can be used at any time, even when the program is minimized. This button resets your current sensitivity to 1 or your base sensitivity. You can reassign this to any button by double clicking on the box, then pressing the key you wish to assign. Default is F7.
+
 ## Curve information
 Below that you can see statistics about the currently generated curve.
 ## Buttons
