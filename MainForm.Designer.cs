@@ -98,6 +98,7 @@ namespace RandomSens
             this.box_Max_Sens.Name = "box_Max_Sens";
             this.box_Max_Sens.Size = new System.Drawing.Size(38, 20);
             this.box_Max_Sens.TabIndex = 4;
+            this.box_Max_Sens.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
             this.box_Max_Sens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Max_Sens_Validating);
             this.box_Max_Sens.Validated += new System.EventHandler(this.box_Validated);
             // 
@@ -107,6 +108,7 @@ namespace RandomSens
             this.box_Min_Sens.Name = "box_Min_Sens";
             this.box_Min_Sens.Size = new System.Drawing.Size(38, 20);
             this.box_Min_Sens.TabIndex = 5;
+            this.box_Min_Sens.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
             this.box_Min_Sens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Min_Sens_Validating);
             this.box_Min_Sens.Validated += new System.EventHandler(this.box_Validated);
             // 
@@ -116,6 +118,7 @@ namespace RandomSens
             this.box_Timestep.Name = "box_Timestep";
             this.box_Timestep.Size = new System.Drawing.Size(38, 20);
             this.box_Timestep.TabIndex = 6;
+            this.box_Timestep.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
             this.box_Timestep.Validating += new System.ComponentModel.CancelEventHandler(this.box_Timestep_Validating);
             this.box_Timestep.Validated += new System.EventHandler(this.box_Validated);
             // 
@@ -125,6 +128,7 @@ namespace RandomSens
             this.box_Spread.Name = "box_Spread";
             this.box_Spread.Size = new System.Drawing.Size(38, 20);
             this.box_Spread.TabIndex = 7;
+            this.box_Spread.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
             this.box_Spread.Validating += new System.ComponentModel.CancelEventHandler(this.box_Spread_Validating);
             this.box_Spread.Validated += new System.EventHandler(this.box_Validated);
             // 
@@ -209,6 +213,7 @@ namespace RandomSens
             this.box_Smoothing.Name = "box_Smoothing";
             this.box_Smoothing.Size = new System.Drawing.Size(38, 20);
             this.box_Smoothing.TabIndex = 15;
+            this.box_Smoothing.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
             this.box_Smoothing.Validating += new System.ComponentModel.CancelEventHandler(this.box_Smoothing_Validating);
             this.box_Smoothing.Validated += new System.EventHandler(this.box_Validated);
             // 
@@ -282,6 +287,7 @@ namespace RandomSens
             this.box_BaseSens.Name = "box_BaseSens";
             this.box_BaseSens.Size = new System.Drawing.Size(38, 20);
             this.box_BaseSens.TabIndex = 3;
+            this.box_BaseSens.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
             this.box_BaseSens.Validating += new System.ComponentModel.CancelEventHandler(this.box_Base_Sens_Validating);
             this.box_BaseSens.Validated += new System.EventHandler(this.box_Validated);
             // 
@@ -320,6 +326,7 @@ namespace RandomSens
             this.box_Curve_Timestep.Name = "box_Curve_Timestep";
             this.box_Curve_Timestep.Size = new System.Drawing.Size(38, 20);
             this.box_Curve_Timestep.TabIndex = 25;
+            this.box_Curve_Timestep.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
             // 
             // box_Mean
             // 

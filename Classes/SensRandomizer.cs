@@ -42,6 +42,7 @@ namespace RandomSens.Classes
                 stopwatch.Start();
                 if (sensitivityCurve.isFinished || isStopped)
                 {
+                    stopwatch.Stop();
                     break;
                 }
                 Interception.MouseStroke mstroke = stroke;

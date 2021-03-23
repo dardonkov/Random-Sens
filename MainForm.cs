@@ -207,54 +207,113 @@ namespace RandomSens
         }
         private void box_Validated(object sender, EventArgs e)
         {
+            bool changed = false;
             TextBox tb = (TextBox)sender;
             double val = Double.Parse(tb.Text);
             switch (tb.Name)
             {
                 case "box_BaseSens":
-                    sensMean = val;
+                    if (sensMean == val)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        sensMean = val;
+                        changed = true;
+                        break;
+                    }
                     break;
                 case "box_Max_Sens":
-                    sensMax = val;
-                    break;
+                    if (sensMax == val)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        sensMax = val;
+                        changed = true;
+                        break;
+                    }
                 case "box_Min_Sens":
-                    sensMin = val;
-                    break;
+                    if (sensMin == val)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        sensMin = val;
+                        changed = true;
+                        break;
+                    }
                 case "box_Timestep":
-                    timestep = val;
-                    break;
+                    if (timestep == val)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        timestep = val;
+                        changed = true;
+                        break;
+                    }
+                case "box_Curve_Timestep":
+                    if (curveTimestep == val)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        curveTimestep = val;
+                        changed = true;
+                        break;
+                    }
                 case "box_Spread":
-                    spread = val;
-                    break;
+                    if (spread == val)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        spread = val;
+                        changed = true;
+                        break;
+                    }
                 case "box_Smoothing":
-                    smoothing = val;
-                    break;
+                    if (smoothing == val)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        smoothing = val;
+                        changed = true;
+                        break;
+                    }
                 default:
                     break;
             }
-            Display_Settings();
+            if (changed)
+            {
+                Display_Settings();
+                Create_Curve();
+            }
+        }
+        private void box_Key_Down(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter)
+            {
+                //e.Handled = true;
+                //Create_Curve();
+            }
+            if ((e.KeyCode < Keys.D0 || e.KeyCode > Keys.D9)&&(e.KeyCode < Keys.NumPad0 || e.KeyCode > Keys.NumPad9))
+            {
+                //e.Handled = true;
+            }
         }
         #endregion Validators
 
-        private void Create_Curve()
-        {
-            //SensitivityCurve sensCurve = new AggressiveCurve(1,2,0.5,10,5);//default sensCurve init
-            switch (cbox_Type.SelectedItem.ToString())
-            {
-                case "Aggressive Curve":
-                    currentSensCurve = new AggressiveCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght);
-                    break;
-                case "Log Normal Curve":
-                    currentSensCurve = new LogNormalCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght, spread);
-                    break;
-            }
-            currentSensCurve.GenerateCurve();
-            currentSensCurve.InterpolateCurveAkima();
-            sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
-            sensCurveChart.Update();
-            box_Std.Text = currentSensCurve.Stdev().ToString();
-            box_Mean.Text = currentSensCurve.GetMean().ToString();
-        }
+
 
         private void Load_Default_Settings()
         {
@@ -302,6 +361,26 @@ namespace RandomSens
             box_Pause_Toggle.Text = pause_Button_Str;
             box_Stop_Toggle.Text = stop_Button_Str;
         }
+        private void Enable_Settings() {
+            box_BaseSens.Enabled = true;
+            box_Max_Sens.Enabled = true;
+            box_Min_Sens.Enabled = true;
+            box_Smoothing.Enabled = true;
+            box_Spread.Enabled = true;
+            box_Timestep.Enabled = true;
+            box_Curve_Timestep.Enabled = true;
+            cbox_Type.Enabled = true;          
+        }
+        private void Disable_Settings() {
+            box_BaseSens.Enabled = false;
+            box_Max_Sens.Enabled = false;
+            box_Min_Sens.Enabled = false;
+            box_Smoothing.Enabled = false;
+            box_Spread.Enabled = false;
+            box_Timestep.Enabled = false;
+            box_Curve_Timestep.Enabled = false;
+            cbox_Type.Enabled = false;
+        }
         private void Start_Pause_Listener()
         {
             PauseListener = new HotkeyListener(pause_Button, stop_Button);
@@ -333,7 +412,25 @@ namespace RandomSens
                 }
             });
         }
-
+        private void Create_Curve()
+        {
+            //SensitivityCurve sensCurve = new AggressiveCurve(1,2,0.5,10,5);//default sensCurve init
+            switch (cbox_Type.SelectedItem.ToString())
+            {
+                case "Aggressive Curve":
+                    currentSensCurve = new AggressiveCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght);
+                    break;
+                case "Log Normal Curve":
+                    currentSensCurve = new LogNormalCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght, spread);
+                    break;
+            }
+            currentSensCurve.GenerateCurve();
+            currentSensCurve.InterpolateCurveAkima();
+            sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
+            sensCurveChart.Update();
+            box_Std.Text = currentSensCurve.Stdev().ToString();
+            box_Mean.Text = currentSensCurve.GetMean().ToString();
+        }
         private void StartRandomizer()
         {
             isPaused = false;
@@ -342,6 +439,7 @@ namespace RandomSens
             btn_Start.Enabled = false;
             btn_Pause.Enabled = true;
             btn_Stop.Enabled = true;
+            Disable_Settings();
             Update_UI(200);//Start updating the UI and the graph every 200ms
             if (SensRandomizer.isPaused) //If the randomizer is paused - then resume
             {
@@ -361,6 +459,7 @@ namespace RandomSens
             btn_Regen_Curve.Enabled = true;
             btn_Start.Enabled = true;
             btn_Pause.Enabled = false;
+            Enable_Settings();
             SensRandomizer.Pause();
         }
         private void StopRandomizer()
@@ -371,6 +470,7 @@ namespace RandomSens
             btn_Start.Enabled = true;
             btn_Pause.Enabled = false;
             btn_Stop.Enabled = false;
+            Enable_Settings();
             box_CurrentSens.Text = sensMean.ToString(); //Display the current sens as the base sens
             SensRandomizer.Stop();
         }
@@ -418,7 +518,5 @@ namespace RandomSens
             Interception.interception_destroy_context(context);
             return keyCode;
         }
-
-
     }
 }
