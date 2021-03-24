@@ -5,7 +5,8 @@ Disclaimer: This is a very much work-in-progress(WIP) tool, bugs are to be expec
 This program is used to dynamically alter your effective mouse sensitivity according to a configurable pre-generated curve. It is mainly intended to be used while aim training,
 in order to improve mouse control in general. It comes with a fully functional GUI that allows you to preview the sensitivity curves and follow the progress in real-time.
 It aims to be a successor to the Sensitivity Randomizer by Whisper & El Bad - https://github.com/Whisperrr/SensitivityRandomizer
-
+# WARNING
+Recently Riot's Vanguard actually has started banning users for having the Interception driver installed. If you plan on playing Valorant it is advised to use the provided driver_uninstall.bat to remove the Interception driver.
 # Installation
 
 1. Download the latest release from the Github page - https://github.com/dardonkov/Random-Sens/releases
