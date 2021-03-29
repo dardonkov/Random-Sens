@@ -7,7 +7,7 @@ namespace RandomSens.Classes
     {
         public bool isPaused { get; set; } = false;
         public bool isStopped { get; set; } = true;
-        internal SensitivityCurve sensitivityCurve { get; private set; }
+        internal SensitivityCurve sensitivityCurve { get; set; }
         internal double currentSens { get; private set; }
         internal double curveCompletion { get; private set; }
         

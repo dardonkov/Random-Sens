@@ -48,6 +48,7 @@ namespace RandomSens
         private void btn_Regen_Curve_Click(object sender, EventArgs e)
         {
             Create_Curve();
+            SensRandomizer.sensitivityCurve = currentSensCurve;
         }
         private void cbox_Type_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -296,15 +297,15 @@ namespace RandomSens
             if (changed)
             {
                 Display_Settings();
-                Create_Curve();
+                //Create_Curve();
             }
         }
         private void box_Key_Down(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter)
             {
-                //e.Handled = true;
-                //Create_Curve();
+                e.Handled = true;
+                btn_Regen_Curve.Focus();
             }
             if ((e.KeyCode < Keys.D0 || e.KeyCode > Keys.D9)&&(e.KeyCode < Keys.NumPad0 || e.KeyCode > Keys.NumPad9))
             {
