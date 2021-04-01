@@ -22,10 +22,35 @@ namespace RandomSens
         public void InterpolateCurveAkima() // generates a smoother version of the random curve
         {
             List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
-            // To do - make a smooth curve
             double[] timestamp = sensCurve.Select(sensCurve => sensCurve.timeStamp).ToArray();
             double[] randomsense = sensCurve.Select(sensCurve => sensCurve.sensitivity).ToArray();
             CubicSpline spline = CubicSpline.InterpolateAkima(timestamp, randomsense);
+            for (double timecode = 0; timecode < this.lenght; timecode += timestep)
+            {
+                SensitivityPoint sensPoint = new SensitivityPoint(timecode, spline.Interpolate(timecode));
+                smoothCurve.Add(sensPoint);
+            }
+            sensCurve = smoothCurve;
+        }
+        public void InterpolateCurveNatural()
+        {
+            List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
+            double[] timestamp = sensCurve.Select(sensCurve => sensCurve.timeStamp).ToArray();
+            double[] randomsense = sensCurve.Select(sensCurve => sensCurve.sensitivity).ToArray();
+            CubicSpline spline = CubicSpline.InterpolateNatural (timestamp, randomsense);
+            for (double timecode = 0; timecode < this.lenght; timecode += timestep)
+            {
+                SensitivityPoint sensPoint = new SensitivityPoint(timecode, spline.Interpolate(timecode));
+                smoothCurve.Add(sensPoint);
+            }
+            sensCurve = smoothCurve;
+        }
+        public void InterpolateCurvePchip()
+        {
+            List<SensitivityPoint> smoothCurve = new List<SensitivityPoint>();
+            double[] timestamp = sensCurve.Select(sensCurve => sensCurve.timeStamp).ToArray();
+            double[] randomsense = sensCurve.Select(sensCurve => sensCurve.sensitivity).ToArray();
+            CubicSpline spline = CubicSpline.InterpolatePchip(timestamp, randomsense);
             for (double timecode = 0; timecode < this.lenght; timecode += timestep)
             {
                 SensitivityPoint sensPoint = new SensitivityPoint(timecode, spline.Interpolate(timecode));
