@@ -29,10 +29,10 @@ namespace RandomSens
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Pause = new System.Windows.Forms.Button();
             this.box_Max_Sens = new System.Windows.Forms.TextBox();
@@ -231,30 +231,30 @@ namespace RandomSens
             // 
             // sensCurveChart
             // 
-            chartArea2.AxisX.IsMarginVisible = false;
-            chartArea2.AxisX.Title = "Time";
-            chartArea2.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea2.AxisY.IsMarginVisible = false;
-            chartArea2.AxisY.Title = "Sensitivity multiplier";
-            chartArea2.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea2.Name = "ChartArea1";
-            this.sensCurveChart.ChartAreas.Add(chartArea2);
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.sensCurveChart.Legends.Add(legend2);
+            chartArea3.AxisX.IsMarginVisible = false;
+            chartArea3.AxisX.Title = "Time";
+            chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.AxisY.IsMarginVisible = false;
+            chartArea3.AxisY.Title = "Sensitivity multiplier";
+            chartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.Name = "ChartArea1";
+            this.sensCurveChart.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.sensCurveChart.Legends.Add(legend3);
             this.sensCurveChart.Location = new System.Drawing.Point(271, 12);
             this.sensCurveChart.Name = "sensCurveChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.sensCurveChart.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.sensCurveChart.Series.Add(series3);
             this.sensCurveChart.Size = new System.Drawing.Size(895, 478);
             this.sensCurveChart.TabIndex = 18;
             this.sensCurveChart.Text = "Sensitivity Curve";
-            title2.Name = "Title1";
-            title2.Text = "Sensitivity Curve";
-            this.sensCurveChart.Titles.Add(title2);
+            title3.Name = "Title1";
+            title3.Text = "Sensitivity Curve";
+            this.sensCurveChart.Titles.Add(title3);
             // 
             // label_mean
             // 
@@ -329,6 +329,8 @@ namespace RandomSens
             this.box_Curve_Timestep.Size = new System.Drawing.Size(38, 20);
             this.box_Curve_Timestep.TabIndex = 25;
             this.box_Curve_Timestep.KeyDown += new System.Windows.Forms.KeyEventHandler(this.box_Key_Down);
+            this.box_Curve_Timestep.Validating += new System.ComponentModel.CancelEventHandler(this.box_Curve_Timestep_Validating);
+            this.box_Curve_Timestep.Validated += new System.EventHandler(this.box_Validated);
             // 
             // box_Mean
             // 

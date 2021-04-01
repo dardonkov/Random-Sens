@@ -206,6 +206,21 @@ namespace RandomSens
                 box_Spread.Text = spread.ToString();
             }
         }
+        private void box_Curve_Timestep_Validating(object sender, CancelEventArgs e)
+        {
+            double res;
+            TextBox tb = (TextBox)sender;
+            if (Double.TryParse(tb.Text, out res) == false)
+            {
+                e.Cancel = true;//Cancel and restore value from properties
+                box_Spread.Text = spread.ToString();
+            }
+            else if (res <= 0)
+            {
+                e.Cancel = true;
+                box_Spread.Text = spread.ToString();
+            }
+        }
         private void box_Smoothing_Validating(object sender, CancelEventArgs e)
         {
 
@@ -301,7 +316,6 @@ namespace RandomSens
             if (changed)
             {
                 Display_Settings();
-                //Create_Curve();
             }
         }
         private void box_Key_Down(object sender, KeyEventArgs e)
@@ -538,6 +552,7 @@ namespace RandomSens
             Interception.interception_destroy_context(context);
             return keyCode;
         }
+
 
     }
 }
