@@ -458,8 +458,8 @@ namespace RandomSens
 
         private void InterpolateCurve()
         {
-            //currentSensCurve.InterpolateCurvePchip();
-            currentSensCurve.InterpolateCurveNatural();
+            currentSensCurve.InterpolateCurvePchip();
+            //currentSensCurve.InterpolateCurveNatural();
             //currentSensCurve.InterpolateCurveAkima();
             sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
             sensCurveChart.Update();
