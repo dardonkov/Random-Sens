@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\TestCurve1.cs" />
     <Compile Include="Classes\AggressiveCurve.cs" />
     <Compile Include="Classes\LogNormalCurve.cs" />
     <Compile Include="Classes\HotkeyListener.cs" />

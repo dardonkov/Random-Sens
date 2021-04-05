@@ -50,6 +50,10 @@ namespace RandomSens
             Create_Curve();
             SensRandomizer.sensitivityCurve = currentSensCurve;
         }
+        private void btn_Interpolate_Curve_Click(object sender, EventArgs e)
+        {
+            InterpolateCurve();
+        }
         private void cbox_Type_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
@@ -202,6 +206,21 @@ namespace RandomSens
                 box_Spread.Text = spread.ToString();
             }
         }
+        private void box_Curve_Timestep_Validating(object sender, CancelEventArgs e)
+        {
+            double res;
+            TextBox tb = (TextBox)sender;
+            if (Double.TryParse(tb.Text, out res) == false)
+            {
+                e.Cancel = true;//Cancel and restore value from properties
+                box_Spread.Text = spread.ToString();
+            }
+            else if (res <= 0)
+            {
+                e.Cancel = true;
+                box_Spread.Text = spread.ToString();
+            }
+        }
         private void box_Smoothing_Validating(object sender, CancelEventArgs e)
         {
 
@@ -297,7 +316,6 @@ namespace RandomSens
             if (changed)
             {
                 Display_Settings();
-                //Create_Curve();
             }
         }
         private void box_Key_Down(object sender, KeyEventArgs e)
@@ -424,14 +442,29 @@ namespace RandomSens
                 case "Log Normal Curve":
                     currentSensCurve = new LogNormalCurve(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght, spread);
                     break;
+                case "Test Curve 1":
+                    currentSensCurve = new TestCurve1(sensMean, sensMax, sensMin, timestep, curveTimestep, curveLenght);
+                    break;
             }
             currentSensCurve.GenerateCurve();
-            currentSensCurve.InterpolateCurveAkima();
             sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
             sensCurveChart.Update();
+
+            //InterpolateCurve();
+
             box_Std.Text = currentSensCurve.Stdev().ToString();
             box_Mean.Text = currentSensCurve.GetMean().ToString();
         }
+
+        private void InterpolateCurve()
+        {
+            currentSensCurve.InterpolateCurvePchip();
+            //currentSensCurve.InterpolateCurveNatural();
+            //currentSensCurve.InterpolateCurveAkima();
+            sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
+            sensCurveChart.Update();
+        }
+
         private void StartRandomizer()
         {
             isPaused = false;
@@ -519,5 +552,7 @@ namespace RandomSens
             Interception.interception_destroy_context(context);
             return keyCode;
         }
+
+
     }
 }
