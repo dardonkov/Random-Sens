@@ -447,18 +447,16 @@ namespace RandomSens
                     break;
             }
             currentSensCurve.GenerateCurve();
-            sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
+            currentSensCurve.InterpolateCurveNatural();
+            sensCurveChart = currentSensCurve.GetChart(sensCurveChart);          
             sensCurveChart.Update();
-
-            //InterpolateCurve();
-
             box_Std.Text = currentSensCurve.Stdev().ToString();
             box_Mean.Text = currentSensCurve.GetMean().ToString();
         }
 
         private void InterpolateCurve()
         {
-            currentSensCurve.InterpolateCurvePchip();
+            //currentSensCurve.InterpolateCurvePchip();
             //currentSensCurve.InterpolateCurveNatural();
             //currentSensCurve.InterpolateCurveAkima();
             sensCurveChart = currentSensCurve.GetChart(sensCurveChart);
